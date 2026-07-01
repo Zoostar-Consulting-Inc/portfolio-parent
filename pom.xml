@@ -13,5 +13,6 @@
 	</parent>
 	<modules>
 		<module>portfolio-api</module>
+		<module>portfolio-core</module>
 	</modules>
 </project>
