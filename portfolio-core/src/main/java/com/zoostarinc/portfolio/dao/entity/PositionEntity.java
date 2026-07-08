@@ -19,7 +19,6 @@ import lombok.ToString;
 public class PositionEntity implements Persistable<String> {
 
 	@Id
-//	@GeneratedValue(generator = "uuid", strategy = GenerationType.UUID)
 	@UuidGenerator
 	private String id;
 	
