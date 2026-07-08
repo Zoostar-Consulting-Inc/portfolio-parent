@@ -1,30 +1,37 @@
 package com.zoostarinc.portfolio.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.function.Supplier;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.zoostarinc.portfolio.dao.repository.PortfolioRepository;
-import com.zoostarinc.portfolio.model.Position;
+import com.zoostarinc.portfolio.dao.entity.PositionEntity;
+import com.zoostarinc.portfolio.dao.repository.PositionRepository;
 import com.zoostarinc.portfolio.service.PortfolioManager;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class DefaultPortfolioManager implements PortfolioManager {
 
-	private final PortfolioRepository portfolioRepository;
+	private final PositionRepository positionRepository;
+
+	@Override
+	public PositionEntity create(Supplier<PositionEntity> supplier) {
+		return positionRepository.save(supplier.get());
+	}
 	
 	@Override
-	public List<Position> retrievePositionsByUser(String oauthId) {
-		List<Position> positions = new ArrayList<>();
-		positions.add(new Position(new Date(), "AEO", 600, 11300f));
-		return positions;
+	@Transactional(readOnly = true)
+	public List<PositionEntity> retrievePositionsByUser(String oauthUserId) {
+		return positionRepository.findByOauthUserIdOrderByTickerAscQuantityDesc(oauthUserId);
 	}
 
 }

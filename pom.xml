@@ -15,4 +15,16 @@
 		<module>portfolio-api</module>
 		<module>portfolio-core</module>
 	</modules>
+	<repositories>
+		<repository>
+			<id>zoostar</id>
+			<url>https://archiva.zoostarinc.com/repository/internal/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

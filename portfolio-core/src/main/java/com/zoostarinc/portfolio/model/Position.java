@@ -14,8 +14,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Position {
+	
+	private String oauthUserId;
 
-	private Date boughtOn;
+	private Date txDate;
 	
 	private String ticker;
 	

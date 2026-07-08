@@ -13,10 +13,10 @@ import lombok.ToString;
 @AllArgsConstructor
 public class PositionSummary {
 
-	private String ticker;
-	
 	private Float amount = 0.0f;
 	
 	private Integer quantity = 0;
+	
+	private Float cost;
 	
 }

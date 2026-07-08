@@ -3,9 +3,11 @@ package com.zoostarinc.portfolio;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -14,6 +16,8 @@ import lombok.Generated;
 
 @Generated
 @Configuration
+@EnableAspectJAutoProxy
+@EnableTransactionManagement
 public class ApplicationContext {
 
 	@Value("${build.name}")

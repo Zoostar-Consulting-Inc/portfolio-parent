@@ -1,6 +1,7 @@
 logging:
   level:
     root: info
+    '[org.springframework.orm.jpa]': debug
     '[com.zoostarinc]': trace
     '[net.zoostar]': trace
 
@@ -20,7 +21,7 @@ spring:
       settings:
         web-allow-others: false
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+    open-in-view: false
     show-sql: true
