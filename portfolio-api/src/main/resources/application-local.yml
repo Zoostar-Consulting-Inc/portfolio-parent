@@ -1,0 +1,27 @@
+logging:
+  level:
+    root: info
+    '[org.springframework.orm.jpa]': debug
+    '[com.zoostarinc]': trace
+    '[net.zoostar]': trace
+
+server:
+  port: 6080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:portfolio;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: ${user.name}
+    password: ${db.password}
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true

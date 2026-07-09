@@ -1,2 +1,2 @@
 # portfolio
-Stock Portfolio Snapshot
+Stock Portfolio Snapshot to calculate average cost per Stock.

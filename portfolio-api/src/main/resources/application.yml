@@ -1,0 +1,40 @@
+build:
+  name: '@build.number@'
+  version: '@project.version@'
+  timestamp: '@build.timestamp@'
+
+logging:
+  file:
+    name: "logs/@project.build.finalName@.log"
+  logback:
+    rollingpolicy:
+      file-name-pattern: "logs/archive/@project.build.finalName@-%d{yyyy-MM-dd}.%i.log.zip"
+      max-history: 10
+  
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 2048
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    active:
+      - local # spring boot profile
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 810043606026-dg6lrjmrf2ie4538tq60tkeq7fiuqqkh.apps.googleusercontent.com
+            clientSecret: ${client.secret.portfolio.google}
+            scope:
+              - openid
+              - profile
+              - email
+
+springdoc:
+  show-actuator: true
