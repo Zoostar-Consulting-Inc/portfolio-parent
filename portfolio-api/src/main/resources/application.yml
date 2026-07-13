@@ -18,6 +18,8 @@ server:
     min-response-size: 2048
 
 spring:
+  datasource:
+    password: ${portfolio.datasource.password}
   output:
     ansi:
       enabled: always
