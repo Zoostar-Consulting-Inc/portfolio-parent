@@ -2,17 +2,14 @@ logging:
   level:
     root: info
     '[org.springframework.orm.jpa]': debug
-    '[com.zoostarinc]': trace
-    '[net.zoostar]': trace
-
-server:
-  port: 6080
+    '[com.zoostarinc]': debug
+    '[net.zoostar]': debug
 
 spring:
   datasource:
-    url: jdbc:h2:mem:portfolio;DB_CLOSE_ON_EXIT=FALSE
+    url: mongodb+srv://pratik_db_user:${db.portfolio.password}@cluster0.vy1xwq4.mongodb.net
     driver-class-name: org.h2.Driver
-    username: ${user.name}
+    username: pratik_db_user
   h2:
     console:
       enabled: true
