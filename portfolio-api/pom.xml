@@ -61,6 +61,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>portfolio</finalName>
+		<finalName>portfolio-api</finalName>
 	</build>
 </project>
