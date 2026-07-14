@@ -5,7 +5,10 @@ logging:
     '[com.zoostarinc]': debug
     '[net.zoostar]': debug
 
+server:
+  forward-headers-strategy: framework
+
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio
+      uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio?retryWrites=true&w=majority
