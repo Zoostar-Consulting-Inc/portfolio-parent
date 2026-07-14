@@ -11,4 +11,4 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio-db?appName=Cluster0
+      uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio?appName=Cluster0
