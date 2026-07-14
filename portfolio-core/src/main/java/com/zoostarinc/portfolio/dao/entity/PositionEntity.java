@@ -2,24 +2,20 @@ package com.zoostarinc.portfolio.dao.entity;
 
 import java.util.Date;
 
-import org.hibernate.annotations.UuidGenerator;
-import org.springframework.data.domain.Persistable;
-import org.springframework.util.StringUtils;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@Entity
+@Document(collection = "positions")
 @ToString
-public class PositionEntity implements Persistable<String> {
+public class PositionEntity {
 
 	@Id
-	@UuidGenerator
 	private String id;
 	
 	private String oauthUserId;
@@ -31,10 +27,5 @@ public class PositionEntity implements Persistable<String> {
 	private Integer quantity;
 	
 	private Float amount;
-
-	@Override
-	public boolean isNew() {
-		return !StringUtils.hasText(id);
-	}
 
 }

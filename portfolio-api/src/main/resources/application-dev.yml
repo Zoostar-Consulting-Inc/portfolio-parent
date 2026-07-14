@@ -8,4 +8,4 @@ logging:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio
+      uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio-dev?appName=Cluster0

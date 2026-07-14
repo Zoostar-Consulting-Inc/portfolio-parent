@@ -1,7 +1,7 @@
 logging:
   level:
     root: info
-    '[org.springframework.orm.jpa]': debug
+    '[org.springframework.data.mongodb]': debug
     '[com.zoostarinc]': trace
     '[net.zoostar]': trace
 
@@ -9,18 +9,6 @@ server:
   port: 6080
 
 spring:
-  datasource:
-    url: jdbc:h2:mem:portfolio;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: ${user.name}
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: false
-  jpa:
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
-    show-sql: true
+  data:
+    mongodb:
+      uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio-local?appName=Cluster0

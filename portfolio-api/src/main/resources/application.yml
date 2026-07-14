@@ -18,14 +18,12 @@ server:
     min-response-size: 2048
 
 spring:
-  datasource:
-    password: ${portfolio.datasource.password}
   output:
     ansi:
       enabled: always
   profiles:
     active:
-      - local # spring boot profile
+      - local # default spring boot profile
   security:
     oauth2:
       client:
