@@ -1,11 +1,5 @@
 package com.zoostarinc.portfolio;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +7,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -27,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableAspectJAutoProxy
 @RequiredArgsConstructor
-@EnableTransactionManagement
-public class ApplicationContext implements DisposableBean {
+//@EnableTransactionManagement
+public class ApplicationContext {
 
 	@Value("${build.name}")
 	private String buildName;
@@ -39,8 +32,6 @@ public class ApplicationContext implements DisposableBean {
 	@Value("${build.timestamp}")
 	private String buildTimestamp;
 	
-	private final DataSource dataSource;
-
 	@Bean
 	OpenAPI openAPI() {
 		var version = new StringBuilder(buildVersion).append(".").append(buildName).append(".").append(buildTimestamp);
@@ -57,24 +48,6 @@ public class ApplicationContext implements DisposableBean {
 				// Allow static resources if you have any served directly
 				.requestMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
 				.anyRequest().authenticated()).oauth2Login(Customizer.withDefaults()).build();
-	}
-
-	@Override
-	public void destroy() throws Exception {
-		closeDataSource(dataSource);
-	}
-
-	public static void closeDataSource(DataSource dataSource) {
-		if(dataSource != null) {
-			Connection conn;
-			try {
-				conn = dataSource.getConnection();
-				log.info("Performing a clean shutdown of connection: {}...", conn);
-				conn.close();
-			} catch (SQLException e) {
-				log.error(e.getMessage(), e);
-			}
-		}
 	}
 
 }

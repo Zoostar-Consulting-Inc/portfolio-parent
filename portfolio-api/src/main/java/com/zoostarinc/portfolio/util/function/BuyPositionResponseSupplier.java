@@ -26,7 +26,7 @@ public class BuyPositionResponseSupplier implements Supplier<PositionEntityRespo
 		response.setQuantity(entity.getQuantity());
 		response.setTicker(entity.getTicker());
 		response.setTxDate(entity.getTxDate());
-		log.debug("Returning buy position response for oauthUserId {}: {}", entity.getOauthUserId(), response);
+		log.debug("Returning persistent entity: {}", response);
 		return response;
 	}
 

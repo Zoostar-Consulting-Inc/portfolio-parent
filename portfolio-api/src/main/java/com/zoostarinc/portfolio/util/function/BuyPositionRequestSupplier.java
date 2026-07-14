@@ -28,7 +28,7 @@ public class BuyPositionRequestSupplier implements Supplier<PositionEntity> {
 		entity.setQuantity(request.getQuantity());
 		entity.setTicker(request.getTicker());
 		entity.setTxDate(request.getTxDate());
-		log.debug("Returning new entity: {}...", entity);
+		log.debug("Returning persistable entity: {}...", entity);
 		return entity;
 	}
 
