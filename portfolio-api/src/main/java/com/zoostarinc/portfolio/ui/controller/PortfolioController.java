@@ -1,5 +1,6 @@
 package com.zoostarinc.portfolio.ui.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
@@ -11,15 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zoostarinc.portfolio.model.PositionDetail;
 import com.zoostarinc.portfolio.model.PositionSummary;
 import com.zoostarinc.portfolio.service.PortfolioManager;
 import com.zoostarinc.portfolio.ui.request.BuyPositionRequest;
+import com.zoostarinc.portfolio.ui.request.BuyPositionRequestSupplier;
 import com.zoostarinc.portfolio.ui.request.SellPositionRequest;
+import com.zoostarinc.portfolio.ui.request.SellPositionRequestSupplier;
+import com.zoostarinc.portfolio.ui.response.BuyPositionResponseSupplier;
+import com.zoostarinc.portfolio.ui.response.PortfolioDetailResponseSupplier;
+import com.zoostarinc.portfolio.ui.response.PortfolioSummaryResponseSupplier;
 import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
-import com.zoostarinc.portfolio.util.function.BuyPositionRequestSupplier;
-import com.zoostarinc.portfolio.util.function.BuyPositionResponseSupplier;
-import com.zoostarinc.portfolio.util.function.PortfolioSummaryResponseSupplier;
-import com.zoostarinc.portfolio.util.function.SellPositionRequestSupplier;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,8 +43,13 @@ public class PortfolioController {
 	}
 
 	@GetMapping(path = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, PositionSummary>> retrieve(@AuthenticationPrincipal DefaultOidcUser user) {
-		return ResponseEntity.ok(new PortfolioSummaryResponseSupplier(defaultPostfolioManager.retrievePositionsByUser(user.getSubject())).get());
+	public ResponseEntity<Map<String, PositionSummary>> summary(@AuthenticationPrincipal DefaultOidcUser user) {
+		return ResponseEntity.ok(new PortfolioSummaryResponseSupplier(defaultPostfolioManager.retrievePositionSummaryByTickerForUser(user.getSubject())).get());
+	}
+
+	@GetMapping(path = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, List<PositionDetail>>> detail(@AuthenticationPrincipal DefaultOidcUser user) {
+		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.retrievePositionSummaryByTickerForUser(user.getSubject())).get());
 	}
 
 }

@@ -1,9 +1,8 @@
-package com.zoostarinc.portfolio.util.function;
+package com.zoostarinc.portfolio.ui.response;
 
 import java.util.function.Supplier;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
-import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
