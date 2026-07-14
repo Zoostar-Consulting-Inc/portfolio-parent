@@ -1,5 +1,11 @@
 package com.zoostarinc.portfolio;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +19,16 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import lombok.Generated;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Generated
 @Configuration
 @EnableAspectJAutoProxy
+@RequiredArgsConstructor
 @EnableTransactionManagement
-public class ApplicationContext {
+public class ApplicationContext implements DisposableBean {
 
 	@Value("${build.name}")
 	private String buildName;
@@ -28,6 +38,8 @@ public class ApplicationContext {
 
 	@Value("${build.timestamp}")
 	private String buildTimestamp;
+	
+	private final DataSource dataSource;
 
 	@Bean
 	OpenAPI openAPI() {
@@ -45,6 +57,24 @@ public class ApplicationContext {
 				// Allow static resources if you have any served directly
 				.requestMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
 				.anyRequest().authenticated()).oauth2Login(Customizer.withDefaults()).build();
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		closeDataSource(dataSource);
+	}
+
+	public static void closeDataSource(DataSource dataSource) {
+		if(dataSource != null) {
+			Connection conn;
+			try {
+				conn = dataSource.getConnection();
+				log.info("Performing a clean shutdown of connection: {}...", conn);
+				conn.close();
+			} catch (SQLException e) {
+				log.error(e.getMessage(), e);
+			}
+		}
 	}
 
 }
