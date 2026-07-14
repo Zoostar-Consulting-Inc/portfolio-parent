@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +43,7 @@ public class SwaggerController implements ApplicationContextAware, InitializingB
 	 * @return greeting message
 	 */
 	@GetMapping(path = "/", produces = MediaType.TEXT_HTML_VALUE)
-	public String home(@AuthenticationPrincipal DefaultOidcUser user, Model model, HttpSession session) {
+	public String home(@AuthenticationPrincipal OidcUser user, Model model, HttpSession session) {
 		log.info("Hello: {}!", user.toString());
 		log.debug("Loading Portfolio RESTful API in env: {}",
 				Arrays.toString(applicationContext.getEnvironment().getActiveProfiles()));
