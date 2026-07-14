@@ -1,11 +1,10 @@
-package com.zoostarinc.portfolio.util.function;
+package com.zoostarinc.portfolio.ui.request;
 
 import java.util.function.Supplier;
 
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
-import com.zoostarinc.portfolio.ui.request.AbstractPositionTransactionRequest;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

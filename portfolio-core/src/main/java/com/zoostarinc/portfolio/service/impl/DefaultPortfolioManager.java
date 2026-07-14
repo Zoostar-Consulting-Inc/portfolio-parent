@@ -30,7 +30,7 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<PositionEntity> retrievePositionsByUser(String oauthUserId) {
+	public List<PositionEntity> retrievePositionSummaryByTickerForUser(String oauthUserId) {
 		return positionRepository.findByOauthUserIdOrderByTickerAscQuantityDesc(oauthUserId);
 	}
 

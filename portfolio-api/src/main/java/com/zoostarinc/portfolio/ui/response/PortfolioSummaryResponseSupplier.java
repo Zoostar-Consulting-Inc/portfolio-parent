@@ -1,4 +1,4 @@
-package com.zoostarinc.portfolio.util.function;
+package com.zoostarinc.portfolio.ui.response;
 
 import java.util.HashMap;
 import java.util.List;
