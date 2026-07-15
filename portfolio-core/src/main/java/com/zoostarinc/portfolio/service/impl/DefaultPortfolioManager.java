@@ -11,9 +11,11 @@ import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.dao.repository.PositionRepository;
 import com.zoostarinc.portfolio.service.PortfolioManager;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.zoostar.common.StringWrapper;
 
 @Slf4j
 @Getter
@@ -31,8 +33,12 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<PositionEntity> retrievePositionSummaryByTickerForUser(String oauthUserId) {
-		return positionRepository.findByOauthUserIdOrderByTickerAscQuantityDesc(oauthUserId);
+	public List<PositionEntity> retrievePositionSummaryByTickerForUser(String oauthUserId, String ticker) {
+		if(StringUtils.isBlank(ticker)) {
+			return positionRepository.findByOauthUserIdOrderByTickerAscQuantityDesc(oauthUserId);
+		} else {
+			return positionRepository.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(oauthUserId, ticker);
+		}
 	}
 
 	@Override
@@ -46,6 +52,18 @@ public class DefaultPortfolioManager implements PortfolioManager {
 		entity.setOauthUserId(position.getOauthUserId());
 		entity.setLastUpdated(new Date());
 		return positionRepository.save(entity);
+	}
+
+	@Override
+	public List<PositionEntity> delete(String oauthUserId, StringWrapper positionId) {
+		var entity = positionRepository.findById(positionId.getValue());
+		if(entity.isPresent()) {
+			log.info("Delete requested by {}: {}...", oauthUserId, entity);
+			positionRepository.deleteByOauthUserIdAndId(oauthUserId, positionId.getValue());
+		} else {
+			log.warn("Delete requested by {}: {} not found.", oauthUserId, positionId.getValue());
+		}
+		return positionRepository.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(oauthUserId, entity.get().getTicker());
 	}
 
 }
