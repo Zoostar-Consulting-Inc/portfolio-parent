@@ -10,5 +10,7 @@ public interface PortfolioManager {
 	PositionEntity create(Supplier<PositionEntity> supplier);
 	
 	List<PositionEntity> retrievePositionSummaryByTickerForUser(String oauthUserId);
+
+	PositionEntity update(Supplier<PositionEntity> supplier);
 	
 }

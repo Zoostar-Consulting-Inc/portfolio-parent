@@ -1,5 +1,6 @@
 package com.zoostarinc.portfolio.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -32,6 +33,19 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	@Transactional(readOnly = true)
 	public List<PositionEntity> retrievePositionSummaryByTickerForUser(String oauthUserId) {
 		return positionRepository.findByOauthUserIdOrderByTickerAscQuantityDesc(oauthUserId);
+	}
+
+	@Override
+	public PositionEntity update(Supplier<PositionEntity> supplier) {
+		var position = supplier.get();
+		var entity = positionRepository.findById(position.getId()).orElseThrow(() -> new IllegalArgumentException("Position not found"));
+		entity.setAmount(position.getAmount());
+		entity.setQuantity(position.getQuantity());
+		entity.setTicker(position.getTicker());
+		entity.setTxDate(position.getTxDate());
+		entity.setOauthUserId(position.getOauthUserId());
+		entity.setLastUpdated(new Date());
+		return positionRepository.save(entity);
 	}
 
 }
