@@ -11,8 +11,8 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Document(collection = "positions")
 @ToString
+@Document(collection = "positions")
 public class PositionEntity {
 
 	@Id
@@ -27,5 +27,7 @@ public class PositionEntity {
 	private Integer quantity;
 	
 	private Float amount;
+	
+	private Date lastUpdated;
 
 }
