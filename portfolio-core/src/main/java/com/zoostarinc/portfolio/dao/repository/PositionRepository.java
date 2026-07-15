@@ -10,4 +10,8 @@ public interface PositionRepository extends MongoRepository<PositionEntity, Stri
 
 	List<PositionEntity> findByOauthUserIdOrderByTickerAscQuantityDesc(String oauthUserId);
 
+	List<PositionEntity> findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(String oauthUserId, String ticker);
+
+	void deleteByOauthUserIdAndId(String oauthUserId, String value);
+
 }

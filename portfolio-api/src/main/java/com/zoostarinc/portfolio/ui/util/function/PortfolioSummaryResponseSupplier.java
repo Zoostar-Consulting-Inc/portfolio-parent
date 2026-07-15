@@ -1,6 +1,6 @@
 package com.zoostarinc.portfolio.ui.util.function;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -22,7 +22,7 @@ public class PortfolioSummaryResponseSupplier implements Supplier<Map<String, Po
 	@Override
 	public Map<String, PositionSummary> get() {
 		log.info("Processing response for {} position(s)...", positions.size());
-		var positionSummaryByTicker = new HashMap<String, PositionSummary>();
+		var positionSummaryByTicker = new LinkedHashMap<String, PositionSummary>();
 		for(var position : positions) {
 			var positionSummary = positionSummaryByTicker.get(position.getTicker());
 			if(positionSummary == null) {
