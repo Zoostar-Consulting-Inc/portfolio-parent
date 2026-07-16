@@ -57,7 +57,7 @@ public class ApplicationContext {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://prod.zoostar.net:9080");
+				registry.addMapping("/**").allowedOrigins("https://portfolio.apigator.net");
 			}
 		};
 	}
