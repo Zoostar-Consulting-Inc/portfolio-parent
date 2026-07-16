@@ -17,11 +17,10 @@ import com.zoostarinc.portfolio.model.PositionSummary;
 import com.zoostarinc.portfolio.service.PortfolioManager;
 import com.zoostarinc.portfolio.ui.request.AbstractPositionTransactionRequest;
 import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
-import com.zoostarinc.portfolio.ui.util.function.BuyPositionRequestSupplier;
 import com.zoostarinc.portfolio.ui.util.function.BuyPositionResponseSupplier;
+import com.zoostarinc.portfolio.ui.util.function.GenericPositionTransactionRequestSupplier;
 import com.zoostarinc.portfolio.ui.util.function.PortfolioDetailResponseSupplier;
 import com.zoostarinc.portfolio.ui.util.function.PortfolioSummaryResponseSupplier;
-import com.zoostarinc.portfolio.ui.util.function.SellPositionRequestSupplier;
 import com.zoostarinc.portfolio.ui.util.function.UpdatePositionDetailRequestSupplier;
 
 import lombok.RequiredArgsConstructor;
@@ -32,15 +31,15 @@ import net.zoostar.common.StringWrapper;
 public class PortfolioController {
 	
 	private final PortfolioManager defaultPostfolioManager;
-
+	
 	@PostMapping(path = "/buy", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PositionEntityResponse> buy(@AuthenticationPrincipal OidcUser user, @RequestBody AbstractPositionTransactionRequest request) {
-		return ResponseEntity.ok(new BuyPositionResponseSupplier(defaultPostfolioManager.create(new BuyPositionRequestSupplier(user, request))).get());
+		return transaction(user, request, 1);
 	}
 
 	@PostMapping(path = "/sell", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PositionEntityResponse> sell(@AuthenticationPrincipal OidcUser user, @RequestBody AbstractPositionTransactionRequest request) {
-		return ResponseEntity.ok(new BuyPositionResponseSupplier(defaultPostfolioManager.create(new SellPositionRequestSupplier(user, request))).get());
+		return transaction(user, request, -1);
 	}
 
 	@GetMapping(path = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,6 +60,10 @@ public class PortfolioController {
 	@PostMapping(path = "/delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, List<PositionEntityResponse>>> delete(@AuthenticationPrincipal OidcUser user, @RequestBody StringWrapper positionId) {
 		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.delete(user.getSubject(), positionId)).get());
+	}
+	
+	protected ResponseEntity<PositionEntityResponse> transaction(OidcUser user, AbstractPositionTransactionRequest request, int factor) {
+		return ResponseEntity.ok(new BuyPositionResponseSupplier(defaultPostfolioManager.create(new GenericPositionTransactionRequestSupplier(user, factor, request))).get());
 	}
 
 }

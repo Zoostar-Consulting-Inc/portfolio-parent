@@ -37,8 +37,8 @@ public class ApplicationContext {
 	@Bean
 	OpenAPI openAPI() {
 		var version = new StringBuilder(buildVersion).append(".").append(buildName).append(".").append(buildTimestamp);
-		return new OpenAPI().info(new Info().title("Stock Portfolio")
-				.description("Swagger UI Page for Portfolio JSON APIs.").version(version.toString())
+		return new OpenAPI().info(new Info().title("Stock Portfolio Costing")
+				.description("Swagger UI Page for RESTful Portfolio Average Costing JSON APIs.").version(version.toString())
 				.contact(new Contact().name("zoostar").email("devops@zoostar.net")));
 	}
 
