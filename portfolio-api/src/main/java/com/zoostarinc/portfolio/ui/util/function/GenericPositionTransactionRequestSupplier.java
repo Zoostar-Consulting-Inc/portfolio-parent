@@ -6,7 +6,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.util.StringUtils;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
-import com.zoostarinc.portfolio.ui.request.AbstractPositionTransactionRequest;
+import com.zoostarinc.portfolio.ui.request.GenericPositionTransactionRequest;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class GenericPositionTransactionRequestSupplier implements Supplier<Posit
 	
 	private final int factor;
 	
-	private final AbstractPositionTransactionRequest request;
+	private final GenericPositionTransactionRequest request;
 	
 	@Override
 	public PositionEntity get() {
