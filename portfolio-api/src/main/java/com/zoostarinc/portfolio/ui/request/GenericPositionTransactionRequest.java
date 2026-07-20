@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class AbstractPositionTransactionRequest {
+public class GenericPositionTransactionRequest {
 	
 	private Date txDate;
 	

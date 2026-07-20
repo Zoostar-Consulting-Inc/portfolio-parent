@@ -1,6 +1,6 @@
 package com.zoostarinc.portfolio.ui.response;
 
-import com.zoostarinc.portfolio.ui.request.AbstractPositionTransactionRequest;
+import com.zoostarinc.portfolio.ui.request.GenericPositionTransactionRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class PositionEntityResponse extends AbstractPositionTransactionRequest {
+public class PositionEntityResponse extends GenericPositionTransactionRequest {
 
 	private String positionId;
 	

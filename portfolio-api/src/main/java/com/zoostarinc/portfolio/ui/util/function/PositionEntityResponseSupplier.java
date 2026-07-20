@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @ToString
 @RequiredArgsConstructor
-public class BuyPositionResponseSupplier implements Supplier<PositionEntityResponse> {
+public class PositionEntityResponseSupplier implements Supplier<PositionEntityResponse> {
 
 	private final PositionEntity entity;
 
