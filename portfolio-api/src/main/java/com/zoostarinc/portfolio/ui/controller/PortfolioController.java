@@ -34,12 +34,12 @@ public class PortfolioController {
 	
 	@PostMapping(path = "/buy", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PositionEntityResponse> buy(@AuthenticationPrincipal OidcUser user, @RequestBody GenericPositionTransactionRequest request) {
-		return transaction(user, request, 1);
+		return transact(user, request, 1);
 	}
 
 	@PostMapping(path = "/sell", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PositionEntityResponse> sell(@AuthenticationPrincipal OidcUser user, @RequestBody GenericPositionTransactionRequest request) {
-		return transaction(user, request, -1);
+		return transact(user, request, -1);
 	}
 
 	@GetMapping(path = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +62,7 @@ public class PortfolioController {
 		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.delete(user.getSubject(), positionId)).get());
 	}
 	
-	protected ResponseEntity<PositionEntityResponse> transaction(OidcUser user, GenericPositionTransactionRequest request, int factor) {
+	protected ResponseEntity<PositionEntityResponse> transact(OidcUser user, GenericPositionTransactionRequest request, int factor) {
 		return ResponseEntity.ok(new BuyPositionResponseSupplier(defaultPostfolioManager.create(new GenericPositionTransactionRequestSupplier(user, factor, request))).get());
 	}
 
