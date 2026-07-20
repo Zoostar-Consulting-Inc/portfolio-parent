@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import org.springframework.util.CollectionUtils;
-
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
 
@@ -27,12 +25,7 @@ public class PortfolioDetailResponseSupplier implements Supplier<Map<String, Lis
 		log.info("Processing response for {} entities...", entities.size());
 		var positionDetailByTicker = new LinkedHashMap<String, List<PositionEntityResponse>>();
 		for(var entity : entities) {
-			var positions = positionDetailByTicker.get(entity.getTicker());
-			if(CollectionUtils.isEmpty(positions)) {
-				log.debug("Creating new list of positions for ticker: {}", entity.getTicker());
-				positions = new ArrayList<>();
-			}
-			
+			var positions = positionDetailByTicker.computeIfAbsent(entity.getTicker(), k -> new ArrayList<>());
 			var response = new PositionEntityResponse();
 			response.setAmount(entity.getAmount());
 			response.setPositionId(entity.getId());

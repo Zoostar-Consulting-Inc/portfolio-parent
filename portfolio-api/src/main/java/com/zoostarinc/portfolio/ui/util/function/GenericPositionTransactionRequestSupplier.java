@@ -3,10 +3,11 @@ package com.zoostarinc.portfolio.ui.util.function;
 import java.util.function.Supplier;
 
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.util.StringUtils;
 
+import com.nimbusds.jwt.util.DateUtils;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.ui.request.GenericPositionTransactionRequest;
+import com.zoostarinc.portfolio.validation.TickerRequestValidator;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,19 +28,15 @@ public class GenericPositionTransactionRequestSupplier implements Supplier<Posit
 	
 	@Override
 	public PositionEntity get() {
-		String ticker = request.getTicker();
-		if (!StringUtils.hasText(ticker)) {
-			throw new IllegalArgumentException("Ticker cannot be null or empty.");
-		}
-
-		var entity = new PositionEntity();
-		entity.setTicker(ticker.trim().toUpperCase());
-		entity.setAmount(request.getAmount() * factor);
-		entity.setOauthUserId(user.getSubject());
-		entity.setQuantity(request.getQuantity() * factor);
-		entity.setTxDate(request.getTxDate());
-		log.debug("Returning persistable entity: {}...", entity);
-		return entity;
+		var position = new PositionEntity();
+		position.setTicker(TickerRequestValidator.INSTANCE.apply(request.getTicker()));
+		position.setAmount(request.getAmount() * factor);
+		position.setOauthUserId(user.getSubject());
+		position.setQuantity(request.getQuantity() * factor);
+		position.setTxDate(request.getTxDate());
+		position.setLastUpdated(DateUtils.nowWithSecondsPrecision());
+		log.debug("Returning persistable entity: {}...", position);
+		return position;
 	}
 
 }

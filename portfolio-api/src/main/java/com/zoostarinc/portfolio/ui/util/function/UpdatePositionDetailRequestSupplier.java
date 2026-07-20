@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import com.nimbusds.jwt.util.DateUtils;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
+import com.zoostarinc.portfolio.validation.TickerRequestValidator;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,15 +24,15 @@ public class UpdatePositionDetailRequestSupplier implements Supplier<PositionEnt
 
 	@Override
 	public PositionEntity get() {
-		var position = new PositionEntity();
-		position.setId(request.getPositionId());
-		position.setAmount(request.getAmount());
-		position.setQuantity(request.getQuantity());
-		position.setTicker(request.getTicker());
-		position.setTxDate(request.getTxDate());
-		position.setOauthUserId(user.getSubject());
-		position.setLastUpdated(DateUtils.nowWithSecondsPrecision());
-		return position;
+		var entity = new PositionEntity();
+		entity.setTicker(TickerRequestValidator.INSTANCE.apply(request.getTicker()));
+		entity.setId(request.getPositionId());
+		entity.setAmount(request.getAmount());
+		entity.setQuantity(request.getQuantity());
+		entity.setTxDate(request.getTxDate());
+		entity.setOauthUserId(user.getSubject());
+		entity.setLastUpdated(DateUtils.nowWithSecondsPrecision());
+		return entity;
 	}
 
 }

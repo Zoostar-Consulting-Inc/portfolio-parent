@@ -23,21 +23,16 @@ public class PortfolioSummaryResponseSupplier implements Supplier<Map<String, Po
 	public Map<String, PositionSummary> get() {
 		log.info("Processing response for {} position(s)...", positions.size());
 		var positionSummaryByTicker = new LinkedHashMap<String, PositionSummary>();
+		log.info("Summarizing {} position(s) by ticker...", positions.size());
 		for(var position : positions) {
-			var positionSummary = positionSummaryByTicker.get(position.getTicker());
-			if(positionSummary == null) {
-				log.debug("Adding new position: {}...", position);
-				positionSummary = new PositionSummary();
-			}
+			var positionSummary = positionSummaryByTicker.computeIfAbsent(position.getTicker(), k -> new PositionSummary());
 			positionSummary.setAmount(positionSummary.getAmount() + position.getAmount());
 			positionSummary.setQuantity(positionSummary.getQuantity() + position.getQuantity());
 			if(positionSummary.getQuantity() > 0) {
 				positionSummary.setCost(positionSummary.getAmount() / positionSummary.getQuantity());
 				positionSummaryByTicker.put(position.getTicker(), positionSummary);
-				log.debug("New position added: {}.", position);
 			} else {
 				positionSummaryByTicker.remove(position.getTicker());
-				log.info("Position removed as quantity reached 0: {}.", position);
 			}
 		}
 		
