@@ -1,4 +1,4 @@
-# [Average Costing for Stock Portfolio](https://portfolio.apigator.net) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=zci_portfolio&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=zci_portfolio)
+# [Average Costing for Stock Portfolio](https://portfolio.apigator.net) [![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=Zoostar-Consulting-Inc_portfolio-parent&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Zoostar-Consulting-Inc_portfolio-parent)
 
 <p>Minimum Environment Requirements:<br/>
 
