@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zoostarinc.portfolio.model.PositionDetail;
 import com.zoostarinc.portfolio.model.PositionSummary;
 import com.zoostarinc.portfolio.service.PortfolioManager;
 import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
-import com.zoostarinc.portfolio.ui.util.function.PositionEntityResponseSupplier;
 import com.zoostarinc.portfolio.ui.util.function.PortfolioDetailResponseSupplier;
 import com.zoostarinc.portfolio.ui.util.function.PortfolioSummaryResponseSupplier;
+import com.zoostarinc.portfolio.ui.util.function.PositionEntityResponseSupplier;
 import com.zoostarinc.portfolio.ui.util.function.UpdatePositionDetailRequestSupplier;
 
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class PortfolioCrudController {
 	}
 
 	@GetMapping(path = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, List<PositionEntityResponse>>> detail(@AuthenticationPrincipal OidcUser user, @RequestParam(required = false) String ticker) {
+	public ResponseEntity<Map<String, List<PositionDetail>>> detail(@AuthenticationPrincipal OidcUser user, @RequestParam(required = false) String ticker) {
 		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.retrievePositionSummaryByTickerForUser(user.getSubject(), ticker)).get());
 	}
 
@@ -46,7 +47,7 @@ public class PortfolioCrudController {
 	}
 
 	@PostMapping(path = "/delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, List<PositionEntityResponse>>> delete(@AuthenticationPrincipal OidcUser user, @RequestBody StringWrapper positionId) {
+	public ResponseEntity<Map<String, List<PositionDetail>>> delete(@AuthenticationPrincipal OidcUser user, @RequestBody StringWrapper positionId) {
 		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.delete(user.getSubject(), positionId)).get());
 	}
 
