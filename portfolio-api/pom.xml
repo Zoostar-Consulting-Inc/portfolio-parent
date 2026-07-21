@@ -9,6 +9,9 @@
 	</parent>
 	<artifactId>portfolio-api</artifactId>
 	<packaging>war</packaging>
+	<properties>
+		<tomcat.maven.deploy.phase>none</tomcat.maven.deploy.phase>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.zoostarinc.portfolio</groupId>
