@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
-import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
+import com.zoostarinc.portfolio.model.PositionDetail;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,21 +16,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @RequiredArgsConstructor
-public class PortfolioDetailResponseSupplier implements Supplier<Map<String, List<PositionEntityResponse>>> {
+public class PortfolioDetailResponseSupplier implements Supplier<Map<String, List<PositionDetail>>> {
 
 	private final List<PositionEntity> entities;
 
 	@Override
-	public Map<String, List<PositionEntityResponse>> get() {
+	public Map<String, List<PositionDetail>> get() {
 		log.info("Processing response for {} entities...", entities.size());
-		var positionDetailByTicker = new LinkedHashMap<String, List<PositionEntityResponse>>();
+		var positionDetailByTicker = new LinkedHashMap<String, List<PositionDetail>>();
 		for(var entity : entities) {
 			var positions = positionDetailByTicker.computeIfAbsent(entity.getTicker(), k -> new ArrayList<>());
-			var response = new PositionEntityResponse();
+			var response = new PositionDetail();
 			response.setAmount(entity.getAmount());
-			response.setPositionId(entity.getId());
+			response.setId(entity.getId());
 			response.setQuantity(entity.getQuantity());
-			response.setTicker(entity.getTicker());
 			response.setTxDate(entity.getTxDate());
 			positions.add(response);
 			positionDetailByTicker.put(entity.getTicker(), positions);
