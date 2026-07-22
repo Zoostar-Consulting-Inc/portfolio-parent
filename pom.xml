@@ -10,11 +10,53 @@
 		<groupId>net.zoostar.boot</groupId>
 		<artifactId>zoostar-boot-starter-parent</artifactId>
 		<version>3.6.0</version>
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+	<properties>
+		<build.number>${user.name}</build.number>
+		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+		<sonar.token>${SONAR_TOKEN}</sonar.token>
+		<sonar.projectKey>Zoostar-Consulting-Inc_portfolio-parent</sonar.projectKey>
+		<sonar.organization>zoostar-consulting-inc</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+	</properties>
 	<modules>
 		<module>portfolio-api</module>
 		<module>portfolio-core</module>
 	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>net.zoostar.common</groupId>
+				<artifactId>zoostar-common</artifactId>
+				<version>3.6.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+	<name>Stock Portfolio for Average Costing RESTful APIs</name>
+	<url>https://portfolio.apigator.net</url>
+	<description>Building RESTful APIs for calculating average cost for stock portfolio.</description>
+	<organization>
+		<name>Zoostar Cosulting, Inc.</name>
+	</organization>
+	<scm>
+		<url>https://github.com/Zoostar-Consulting-Inc/portfolio-parent</url>
+		<developerConnection>zoostar</developerConnection>
+	</scm>
+	<ciManagement>
+		<system>Jenkins</system>
+	</ciManagement>
 	<repositories>
 		<repository>
 			<id>zoostar</id>
