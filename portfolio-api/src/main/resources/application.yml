@@ -1,6 +1,6 @@
 build:
-  name: '@project.build.finalName@'
-  number: '@build.number@'
+  context-path: '@project.build.finalName@'
+  name: '@build.number@'
   version: '@project.version@'
   timestamp: '@build.timestamp@'
 
