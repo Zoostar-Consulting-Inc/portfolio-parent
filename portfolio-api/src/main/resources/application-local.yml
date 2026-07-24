@@ -6,7 +6,7 @@ logging:
     '[net.zoostar]': trace
 
 server:
-  port: 6080
+  port: 1080
 
 spring:
   data:
