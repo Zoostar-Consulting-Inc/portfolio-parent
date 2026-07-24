@@ -46,7 +46,8 @@
 	</build>
 	<name>Stock Portfolio for Average Costing RESTful APIs</name>
 	<url>https://portfolio.apigator.net</url>
-	<description>Building RESTful APIs for calculating average cost for stock portfolio.</description>
+	<description>Building RESTful APIs for calculating average cost for stock
+		portfolio.</description>
 	<organization>
 		<name>Zoostar Cosulting, Inc.</name>
 	</organization>
@@ -57,4 +58,17 @@
 	<ciManagement>
 		<system>Jenkins</system>
 	</ciManagement>
+	<repositories>
+		<repository>
+			<id>internal</id>
+			<name>Archiva Managed Internal Repository</name>
+			<url>http://archiva.zoostarinc.com/repository/internal/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>
