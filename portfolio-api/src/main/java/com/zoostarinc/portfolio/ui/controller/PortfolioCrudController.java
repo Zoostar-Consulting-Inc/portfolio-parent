@@ -23,7 +23,6 @@ import com.zoostarinc.portfolio.ui.util.function.PositionEntityResponseSupplier;
 import com.zoostarinc.portfolio.ui.util.function.UpdatePositionDetailRequestSupplier;
 
 import lombok.RequiredArgsConstructor;
-import net.zoostar.common.StringWrapper;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,7 +46,7 @@ public class PortfolioCrudController {
 	}
 
 	@PostMapping(path = "/delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, List<PositionDetail>>> delete(@AuthenticationPrincipal OidcUser user, @RequestBody StringWrapper positionId) {
+	public ResponseEntity<Map<String, List<PositionDetail>>> delete(@AuthenticationPrincipal OidcUser user, @RequestParam String positionId) {
 		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.delete(user.getSubject(), positionId)).get());
 	}
 

@@ -1,5 +1,4 @@
 build:
-  context-path: '@project.build.finalName@'
   name: '@build.number@'
   version: '@project.version@'
   timestamp: '@build.timestamp@'
@@ -17,6 +16,8 @@ server:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
     min-response-size: 2048
+  servlet:
+    context-path: '/@project.build.finalName@'
 
 spring:
   output:
