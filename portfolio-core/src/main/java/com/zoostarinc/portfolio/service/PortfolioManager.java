@@ -5,8 +5,6 @@ import java.util.function.Supplier;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 
-import net.zoostar.common.StringWrapper;
-
 public interface PortfolioManager {
 
 	PositionEntity create(Supplier<PositionEntity> supplier);
@@ -15,6 +13,7 @@ public interface PortfolioManager {
 	
 	PositionEntity update(Supplier<PositionEntity> supplier);
 
-	List<PositionEntity> delete(String oauthUserId, StringWrapper positionId);
+	List<PositionEntity> delete(String oauthUserId, String positionId);
+
 	
 }

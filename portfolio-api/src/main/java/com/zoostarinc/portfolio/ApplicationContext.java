@@ -35,13 +35,16 @@ public class ApplicationContext {
 
 	@Value("${build.timestamp}")
 	private String buildTimestamp;
+	
+	@Value("${server.servlet.context-path}")
+	private String contextPath;
 
 	@Bean
 	OpenAPI openAPI() {
 		var version = new StringBuilder(buildVersion).append(".").append(buildName).append(".").append(buildTimestamp);
 		return new OpenAPI().info(new Info().title("Average Costing for Stock Portfolio")
 				.description("Swagger UI Page for RESTful Portfolio JSON APIs.").version(version.toString())
-				.contact(new Contact().name("zoostar").email("devops@zoostar.net")));
+				.contact(new Contact().name("zoostar").email("devops@zoostar.net").url(contextPath)));
 	}
 
 	@Bean
