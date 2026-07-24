@@ -57,16 +57,4 @@
 	<ciManagement>
 		<system>Jenkins</system>
 	</ciManagement>
-	<repositories>
-		<repository>
-			<id>zoostar</id>
-			<url>https://archiva.zoostarinc.com/repository</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 </project>
