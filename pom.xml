@@ -60,7 +60,7 @@
 	<repositories>
 		<repository>
 			<id>zoostar</id>
-			<url>https://archiva.zoostarinc.com/repository/internal/</url>
+			<url>https://archiva.zoostarinc.com/repository</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
