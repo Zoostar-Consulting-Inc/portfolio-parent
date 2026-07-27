@@ -5,18 +5,13 @@
 	<parent>
 		<groupId>com.zoostarinc.portfolio</groupId>
 		<artifactId>portfolio-parent</artifactId>
-		<version>1.3.0-SNAPSHOT</version>
+		<version>1.4.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>portfolio-core</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>net.zoostar.common</groupId>
 			<artifactId>zoostar-common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

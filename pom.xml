@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.zoostarinc.portfolio</groupId>
 	<artifactId>portfolio-parent</artifactId>
-	<version>1.3.0-SNAPSHOT</version>
+	<version>1.4.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>net.zoostar.boot</groupId>
@@ -59,8 +59,9 @@
 	</ciManagement>
 	<repositories>
 		<repository>
-			<id>zoostar</id>
-			<url>https://archiva.zoostarinc.com/repository/internal/</url>
+			<id>internal</id>
+			<name>Archiva Managed Internal Repository</name>
+			<url>http://archiva.zoostarinc.com/repository/internal/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
