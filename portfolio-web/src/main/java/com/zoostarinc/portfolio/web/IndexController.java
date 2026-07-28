@@ -1,7 +1,6 @@
 package com.zoostarinc.portfolio.web;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ public class IndexController {
 	@Value("${api.base.url}")
 	private String apiBaseUrl;
 
-	@GetMapping(path = "/", produces = MediaType.TEXT_HTML_VALUE)
+	@GetMapping(path = "/")
 	public String index(@AuthenticationPrincipal OidcUser user, HttpSession session) {
 		log.info("Hello User: {}", user);
 		session.setAttribute("name", user.getFullName());

@@ -45,17 +45,4 @@ public class ApplicationContext {
 		};
 	}
 
-	@Bean
-	WebMvcConfigurer viewConfigurer() {
-
-		return new WebMvcConfigurer() {
-
-			@Override
-			public void configureViewResolvers(ViewResolverRegistry registry) {
-				registry.jsp("/WEB-INF/view/", ".jsp");
-				log.debug("{}", "Completed View Resolver configuration.");
-			}
-
-		};
-	}
 }

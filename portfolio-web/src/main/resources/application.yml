@@ -20,6 +20,10 @@ server:
     context-path: '/@project.build.finalName@'
 
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
   output:
     ansi:
       enabled: always
