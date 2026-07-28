@@ -1,4 +1,4 @@
-package com.zoostarinc.portfolio.ui.request;
+package com.zoostarinc.portfolio.api.request;
 
 import java.util.Date;
 

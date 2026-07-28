@@ -1,4 +1,4 @@
-package com.zoostarinc.portfolio.ui.controller;
+package com.zoostarinc.portfolio.api.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zoostarinc.portfolio.api.request.GenericPositionTransactionRequest;
+import com.zoostarinc.portfolio.api.response.PositionEntityResponse;
+import com.zoostarinc.portfolio.api.util.function.GenericPositionTransactionRequestSupplier;
+import com.zoostarinc.portfolio.api.util.function.PositionEntityResponseSupplier;
 import com.zoostarinc.portfolio.service.PortfolioManager;
-import com.zoostarinc.portfolio.ui.request.GenericPositionTransactionRequest;
-import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
-import com.zoostarinc.portfolio.ui.util.function.PositionEntityResponseSupplier;
-import com.zoostarinc.portfolio.ui.util.function.GenericPositionTransactionRequestSupplier;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,6 +1,6 @@
-package com.zoostarinc.portfolio.ui.response;
+package com.zoostarinc.portfolio.api.response;
 
-import com.zoostarinc.portfolio.ui.request.GenericPositionTransactionRequest;
+import com.zoostarinc.portfolio.api.request.GenericPositionTransactionRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

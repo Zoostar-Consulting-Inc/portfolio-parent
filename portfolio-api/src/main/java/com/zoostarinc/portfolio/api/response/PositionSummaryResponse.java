@@ -1,4 +1,4 @@
-package com.zoostarinc.portfolio.model;
+package com.zoostarinc.portfolio.api.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class PositionSummary {
+public class PositionSummaryResponse {
 
 	private Float amount = 0.0f;
 	

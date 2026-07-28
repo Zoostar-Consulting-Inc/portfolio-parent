@@ -21,6 +21,7 @@
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<modules>
+		<module>portfolio-web</module>
 		<module>portfolio-api</module>
 		<module>portfolio-core</module>
 	</modules>

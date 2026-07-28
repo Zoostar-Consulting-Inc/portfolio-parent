@@ -31,12 +31,9 @@ spring:
       client:
         registration:
           google:
-            clientId: 810043606026-dg6lrjmrf2ie4538tq60tkeq7fiuqqkh.apps.googleusercontent.com
-            clientSecret: ${client.secret.portfolio-api.google}
+            clientId: 810043606026-uklrbdff94998s1mincvkkl1qpundqtt.apps.googleusercontent.com
+            clientSecret: ${client.secret.portfolio-web.google}
             scope:
               - openid
               - profile
               - email
-
-springdoc:
-  show-actuator: true

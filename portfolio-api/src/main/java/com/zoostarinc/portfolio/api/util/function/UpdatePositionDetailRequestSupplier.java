@@ -1,12 +1,12 @@
-package com.zoostarinc.portfolio.ui.util.function;
+package com.zoostarinc.portfolio.api.util.function;
 
 import java.util.function.Supplier;
 
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 import com.nimbusds.jwt.util.DateUtils;
+import com.zoostarinc.portfolio.api.response.PositionEntityResponse;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
-import com.zoostarinc.portfolio.ui.response.PositionEntityResponse;
 import com.zoostarinc.portfolio.validation.TickerRequestValidator;
 
 import lombok.Getter;
