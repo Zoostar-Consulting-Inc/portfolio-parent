@@ -30,9 +30,12 @@ public class GenericPositionTransactionRequestSupplier implements Supplier<Posit
 	public PositionEntity get() {
 		var position = new PositionEntity();
 		position.setTicker(TickerRequestValidator.INSTANCE.apply(request.getTicker()));
+		if(request.getQuantity() <= 0) {
+			throw new IllegalArgumentException("Quantity must be greater than zero!");
+		}
+		position.setQuantity(request.getQuantity() * factor);
 		position.setAmount(request.getAmount() * factor);
 		position.setOauthUserId(user.getSubject());
-		position.setQuantity(request.getQuantity() * factor);
 		position.setTxDate(request.getTxDate());
 		position.setLastUpdated(DateUtils.nowWithSecondsPrecision());
 		log.debug("Returning persistable entity: {}...", position);
