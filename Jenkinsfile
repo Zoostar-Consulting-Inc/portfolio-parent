@@ -10,7 +10,7 @@ pipeline {
 				script {
 					if("support" != "$target" &&
 							("create" == "$action"|| "opened" == "$action" || "synchronize" == "$action")) {
-						bat 'mvn -Pdevelop -U clean verify -Dbuild.number=%BUILD_NUMBER%'
+						bat 'mvn -U clean verify -Dbuild.number=%BUILD_NUMBER%'
 					}
 				}
 			}
@@ -32,7 +32,7 @@ pipeline {
 				script {
 					if("closed" == "$action" &&
 							("develop" == "$target" || "support" == "$target")) {
-						bat 'mvn -U -B clean deploy -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
+						bat 'mvn -Pdevelop -U -B clean deploy -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
 					}
 				}
 			}
