@@ -7,7 +7,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.Generated;
@@ -35,11 +34,6 @@ public class ApplicationContext {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("https://portfolio.zoostarinc.com");
 				log.debug("{}", "Completed CORS configuration.");
-			}
-
-			@Override
-			public void configureViewResolvers(ViewResolverRegistry registry) {
-				registry.jsp("/pages/", ".jsp");
 			}
 
 		};
