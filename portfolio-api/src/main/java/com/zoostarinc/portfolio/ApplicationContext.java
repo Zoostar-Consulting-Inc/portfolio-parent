@@ -60,10 +60,13 @@ public class ApplicationContext {
 	@Bean
 	WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
+			
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("https://portfolio.apigator.net");
 			}
+			
 		};
+		
 	}
 }
