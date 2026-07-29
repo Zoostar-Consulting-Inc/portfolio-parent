@@ -16,27 +16,36 @@ pipeline {
 			}
 		}
 		
-        stage('Install') {
+        stage('Install to Stage') {
 			steps {
 				script {
 					if("support" == "$target" &&
 							("opened" == "$action" || "synchronize" == "$action")) {
-						bat 'mvn -U -B clean install -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
+						bat 'mvn -Pstage -U -B clean install -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
 					}
 				}
 			}
 		}
 		
-        stage('Deploy') {
+        stage('Deploy to Dev') {
 			steps {
 				script {
-					if("closed" == "$action" &&
-							("develop" == "$target" || "support" == "$target")) {
-						bat 'mvn -Pdevelop -U -B clean deploy -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
+					if("closed" == "$action" && "develop" == "$target") {
+						bat 'mvn -Pdev -U -B clean deploy -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
 					}
 				}
 			}
 		}
-    }
-    
+		
+        stage('Deploy to Prod') {
+			steps {
+				script {
+					if("closed" == "$action" && "support" == "$target") {
+						bat 'mvn -Pprod -U -B clean deploy -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
+					}
+				}
+			}
+		}
+
+    }    
 }

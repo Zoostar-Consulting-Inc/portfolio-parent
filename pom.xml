@@ -74,7 +74,7 @@
     <profiles>
         <!-- Development Profile -->
         <profile>
-            <id>develop</id>
+            <id>dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault> <!-- Active if no other profile is specified -->
             </activation>
@@ -83,11 +83,19 @@
             </properties>
         </profile>
 
+        <!-- Staging Profile -->
+        <profile>
+            <id>stage</id>
+            <properties>
+                <db.url>http://stage.zoostar.net:9080/manager/text</db.url>
+            </properties>
+        </profile>
+
         <!-- Production Profile -->
         <profile>
             <id>prod</id>
             <properties>
-                <db.url>jdbc:mysql://prod-server:3306/prod_db</db.url>
+                <db.url>http://prod.zoostar.net:9080/manager/text</db.url>
             </properties>
         </profile>
     </profiles>
