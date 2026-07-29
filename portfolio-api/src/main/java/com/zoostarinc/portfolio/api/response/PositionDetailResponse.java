@@ -1,28 +1,29 @@
-package com.zoostarinc.portfolio.model;
+package com.zoostarinc.portfolio.api.response;
 
 import java.util.Date;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
+@Setter(value = AccessLevel.PROTECTED)
 @ToString
 @NoArgsConstructor
-public class PositionDetail {
+public class PositionDetailResponse {
 
-	public PositionDetail(PositionEntity entity) {
-		this.id = entity.getId();
+	public PositionDetailResponse(PositionEntity entity) {
+		this.positionId = entity.getId();
 		this.txDate = entity.getTxDate();
 		this.quantity = entity.getQuantity();
 		this.amount = entity.getAmount();
 	}
 	
-	private String id;
+	private String positionId;
 	
 	private Date txDate;
 	

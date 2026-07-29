@@ -1,0 +1,12 @@
+api:
+  base:
+    url: http://localhost:8080/portfolio-api
+
+logging:
+  level:
+    root: info
+    '[com.zoostarinc]': trace
+    '[net.zoostar]': trace
+
+server:
+  port: 1080

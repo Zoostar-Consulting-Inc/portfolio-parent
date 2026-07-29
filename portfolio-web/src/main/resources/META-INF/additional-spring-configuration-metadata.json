@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "build.name",
+    "type": "java.lang.String",
+    "description": "Jenkins Build Number"
+  },
+  {
+    "name": "build.timestamp",
+    "type": "java.lang.String",
+    "description": "Most recent timestamp of the build"
+  },
+  {
+    "name": "build.version",
+    "type": "java.lang.String",
+    "description": "Build version from pom.xml"
+  }
+]}

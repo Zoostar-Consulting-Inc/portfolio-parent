@@ -1,12 +1,12 @@
-package com.zoostarinc.portfolio.ui.util.function;
+package com.zoostarinc.portfolio.api.util.function;
 
 import java.util.function.Supplier;
 
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 import com.nimbusds.jwt.util.DateUtils;
+import com.zoostarinc.portfolio.api.request.PositionRequest;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
-import com.zoostarinc.portfolio.ui.request.GenericPositionTransactionRequest;
 import com.zoostarinc.portfolio.validation.TickerRequestValidator;
 
 import lombok.Getter;
@@ -18,13 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @ToString
 @RequiredArgsConstructor
-public class GenericPositionTransactionRequestSupplier implements Supplier<PositionEntity> {
+public class PositionRequestEntitySupplier implements Supplier<PositionEntity> {
 
 	private final OidcUser user;
 	
 	private final int factor;
 	
-	private final GenericPositionTransactionRequest request;
+	private final PositionRequest request;
 	
 	@Override
 	public PositionEntity get() {

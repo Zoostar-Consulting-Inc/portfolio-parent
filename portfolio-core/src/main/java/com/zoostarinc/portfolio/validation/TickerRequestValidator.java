@@ -17,7 +17,7 @@ public class TickerRequestValidator implements UnaryOperator<String> {
 		if(StringUtils.hasText(ticker)) {
 			return ticker.trim().toUpperCase();
 		}
-		throw new IllegalArgumentException("Ticker is required");
+		throw new IllegalArgumentException("Ticker is required!");
 	}
 
 }

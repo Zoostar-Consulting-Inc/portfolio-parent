@@ -32,7 +32,7 @@ pipeline {
 				script {
 					if("closed" == "$action" &&
 							("develop" == "$target" || "support" == "$target")) {
-						bat 'mvn -U -B clean deploy -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
+						bat 'mvn -Pdevelop -U -B clean deploy -Dbuild.number="%BUILD_NUMBER%" -Dmaven.test.skip=true -Dtomcat.maven.deploy.phase="install"'
 					}
 				}
 			}
