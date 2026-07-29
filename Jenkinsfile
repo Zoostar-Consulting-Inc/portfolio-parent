@@ -10,7 +10,7 @@ pipeline {
 				script {
 					if("support" != "$target" &&
 							("create" == "$action"|| "opened" == "$action" || "synchronize" == "$action")) {
-						bat 'mvn -U clean verify -Dbuild.number=%BUILD_NUMBER%'
+						bat 'mvn -Pdevelop -U clean verify -Dbuild.number=%BUILD_NUMBER%'
 					}
 				}
 			}

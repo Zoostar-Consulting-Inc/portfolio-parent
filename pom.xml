@@ -71,4 +71,24 @@
 			</snapshots>
 		</repository>
 	</repositories>
+    <profiles>
+        <!-- Development Profile -->
+        <profile>
+            <id>develop</id>
+            <activation>
+                <activeByDefault>true</activeByDefault> <!-- Active if no other profile is specified -->
+            </activation>
+            <properties>
+                <tomcat.deploy.url>http://dev.zoostar.net:9080/manager/text</tomcat.deploy.url>
+            </properties>
+        </profile>
+
+        <!-- Production Profile -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <db.url>jdbc:mysql://prod-server:3306/prod_db</db.url>
+            </properties>
+        </profile>
+    </profiles>
 </project>
