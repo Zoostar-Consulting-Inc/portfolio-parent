@@ -87,7 +87,7 @@
         <profile>
             <id>stage</id>
             <properties>
-                <db.url>http://stage.zoostar.net:9080/manager/text</db.url>
+                <tomcat.deploy.url>http://stage.zoostar.net:9080/manager/text</tomcat.deploy.url>
             </properties>
         </profile>
 
@@ -95,7 +95,7 @@
         <profile>
             <id>prod</id>
             <properties>
-                <db.url>http://prod.zoostar.net:9080/manager/text</db.url>
+                <tomcat.deploy.url>http://prod.zoostar.net:9080/manager/text</tomcat.deploy.url>
             </properties>
         </profile>
     </profiles>
