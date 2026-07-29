@@ -60,7 +60,7 @@
 	</ciManagement>
 	<repositories>
 		<repository>
-			<id>internal</id>
+			<id>zoostar</id>
 			<name>Archiva Managed Internal Repository</name>
 			<url>http://archiva.zoostarinc.com/repository/internal/</url>
 			<releases>
