@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 import com.nimbusds.jwt.util.DateUtils;
-import com.zoostarinc.portfolio.api.response.PositionEntityResponse;
+import com.zoostarinc.portfolio.api.response.PositionResponse;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.validation.TickerRequestValidator;
 
@@ -20,7 +20,7 @@ public class UpdatePositionDetailRequestSupplier implements Supplier<PositionEnt
 
 	private final OidcUser user;
 	
-	private final PositionEntityResponse request;
+	private final PositionResponse request;
 
 	@Override
 	public PositionEntity get() {

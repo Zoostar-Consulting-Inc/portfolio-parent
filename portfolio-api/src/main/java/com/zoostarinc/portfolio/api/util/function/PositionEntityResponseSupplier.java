@@ -2,7 +2,7 @@ package com.zoostarinc.portfolio.api.util.function;
 
 import java.util.function.Supplier;
 
-import com.zoostarinc.portfolio.api.response.PositionEntityResponse;
+import com.zoostarinc.portfolio.api.response.PositionResponse;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 
 import lombok.Getter;
@@ -14,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @ToString
 @RequiredArgsConstructor
-public class PositionEntityResponseSupplier implements Supplier<PositionEntityResponse> {
+public class PositionEntityResponseSupplier implements Supplier<PositionResponse> {
 
 	private final PositionEntity entity;
 
 	@Override
-	public PositionEntityResponse get() {
-		var response = new PositionEntityResponse();
+	public PositionResponse get() {
+		var response = new PositionResponse();
 		response.setAmount(entity.getAmount());
 		response.setPositionId(entity.getId());
 		response.setQuantity(entity.getQuantity());

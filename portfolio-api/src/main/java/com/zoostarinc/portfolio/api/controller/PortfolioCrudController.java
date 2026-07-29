@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zoostarinc.portfolio.api.response.PositionDetailResponse;
-import com.zoostarinc.portfolio.api.response.PositionEntityResponse;
+import com.zoostarinc.portfolio.api.response.PositionResponse;
 import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
 import com.zoostarinc.portfolio.api.util.function.PortfolioDetailResponseSupplier;
 import com.zoostarinc.portfolio.api.util.function.PortfolioSummaryResponseSupplier;
@@ -41,7 +41,7 @@ public class PortfolioCrudController {
 	}
 
 	@PostMapping(path = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PositionEntityResponse> update(@AuthenticationPrincipal OidcUser user, @RequestBody PositionEntityResponse request) {
+	public ResponseEntity<PositionResponse> update(@AuthenticationPrincipal OidcUser user, @RequestBody PositionResponse request) {
 		return ResponseEntity.ok(new PositionEntityResponseSupplier(defaultPostfolioManager.update(new UpdatePositionDetailRequestSupplier(user, request))).get());
 	}
 
