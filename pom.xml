@@ -58,19 +58,6 @@
 	<ciManagement>
 		<system>Jenkins</system>
 	</ciManagement>
-	<repositories>
-		<repository>
-			<id>zoostar</id>
-			<name>Archiva Managed Internal Repository</name>
-			<url>http://archiva.zoostarinc.com/repository/internal/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
     <profiles>
         <!-- Development Profile -->
         <profile>
