@@ -72,7 +72,7 @@
 		</repository>
 
 		<repository>
-			<id>zoostar</id>
+			<id>internal</id>
 			<url>http://archiva.zoostar.net/repository/internal/</url>
 			<snapshots>
 				<enabled>false</enabled>
