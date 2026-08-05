@@ -1,0 +1,11 @@
+logging:
+  level:
+    root: info
+    '[org.springframework.orm.jpa]': debug
+    '[com.zoostarinc]': debug
+    '[net.zoostar]': debug
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio-stage?appName=Cluster0

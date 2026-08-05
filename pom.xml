@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.zoostarinc.portfolio</groupId>
 	<artifactId>portfolio-parent</artifactId>
-	<version>1.4.0-SNAPSHOT</version>
+	<version>1.5.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<parent>
 		<groupId>net.zoostar.boot</groupId>
@@ -58,45 +58,33 @@
 	<ciManagement>
 		<system>Jenkins</system>
 	</ciManagement>
-	<repositories>
-		<repository>
-			<id>internal</id>
-			<name>Archiva Managed Internal Repository</name>
-			<url>http://archiva.zoostarinc.com/repository/internal/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-    <profiles>
-        <!-- Development Profile -->
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault> <!-- Active if no other profile is specified -->
-            </activation>
-            <properties>
-                <tomcat.deploy.url>http://dev.zoostar.net:9080/manager/text</tomcat.deploy.url>
-            </properties>
-        </profile>
+	<profiles>
+		<!-- Development Profile -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault> <!-- Active if no other
+				profile is specified -->
+			</activation>
+			<properties>
+				<tomcat.deploy.url>http://dev.zoostar.net:9080/manager/text</tomcat.deploy.url>
+			</properties>
+		</profile>
 
-        <!-- Staging Profile -->
-        <profile>
-            <id>stage</id>
-            <properties>
-                <db.url>http://stage.zoostar.net:9080/manager/text</db.url>
-            </properties>
-        </profile>
+		<!-- Staging Profile -->
+		<profile>
+			<id>stage</id>
+			<properties>
+				<tomcat.deploy.url>http://stage.zoostar.net:9080/manager/text</tomcat.deploy.url>
+			</properties>
+		</profile>
 
-        <!-- Production Profile -->
-        <profile>
-            <id>prod</id>
-            <properties>
-                <db.url>http://prod.zoostar.net:9080/manager/text</db.url>
-            </properties>
-        </profile>
-    </profiles>
+		<!-- Production Profile -->
+		<profile>
+			<id>prod</id>
+			<properties>
+				<tomcat.deploy.url>http://prod.zoostar.net:9080/manager/text</tomcat.deploy.url>
+			</properties>
+		</profile>
+	</profiles>
 </project>
