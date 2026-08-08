@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.zoostarinc.portfolio.api.response.PortfolioSummaryResponse;
 import com.zoostarinc.portfolio.api.response.PositionDetailResponse;
 import com.zoostarinc.portfolio.api.response.PositionResponse;
-import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
 import com.zoostarinc.portfolio.api.util.function.PortfolioDetailResponseSupplier;
 import com.zoostarinc.portfolio.api.util.function.PortfolioSummaryResponseSupplier;
 import com.zoostarinc.portfolio.api.util.function.PositionEntityResponseSupplier;
@@ -31,7 +31,7 @@ public class PortfolioCrudController {
 	private final PortfolioManager defaultPostfolioManager;
 
 	@GetMapping(path = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, PositionSummaryResponse>> summary(@AuthenticationPrincipal OidcUser user, @RequestParam(required = false) String ticker) {
+	public ResponseEntity<PortfolioSummaryResponse> summary(@AuthenticationPrincipal OidcUser user, @RequestParam(required = false) String ticker) {
 		return ResponseEntity.ok(new PortfolioSummaryResponseSupplier(defaultPostfolioManager.retrievePositionSummaryByTickerForUser(user.getSubject(), ticker)).get());
 	}
 

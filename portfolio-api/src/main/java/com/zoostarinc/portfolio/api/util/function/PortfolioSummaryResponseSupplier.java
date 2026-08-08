@@ -2,27 +2,31 @@ package com.zoostarinc.portfolio.api.util.function;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
+import com.zoostarinc.portfolio.api.response.PortfolioSummaryResponse;
 import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Getter
+@ToString
 @RequiredArgsConstructor
-public class PortfolioSummaryResponseSupplier implements Supplier<Map<String, PositionSummaryResponse>> {
+public class PortfolioSummaryResponseSupplier implements Supplier<PortfolioSummaryResponse> {
 
 	private final List<PositionEntity> positions;
 	
 	@Override
-	public Map<String, PositionSummaryResponse> get() {
+	public PortfolioSummaryResponse get() {
 		log.info("Processing response for {} position(s)...", positions.size());
 		var positionSummaryByTicker = new LinkedHashMap<String, PositionSummaryResponse>();
+		var response = new PortfolioSummaryResponse();
+		response.setPositions(positionSummaryByTicker);
 		log.info("Summarizing {} position(s) by ticker...", positions.size());
 		for(var position : positions) {
 			var positionSummary = positionSummaryByTicker.computeIfAbsent(position.getTicker(), k -> new PositionSummaryResponse());
@@ -36,7 +40,7 @@ public class PortfolioSummaryResponseSupplier implements Supplier<Map<String, Po
 			}
 		}
 		
-		return positionSummaryByTicker;
+		return response;
 	}
 
 }

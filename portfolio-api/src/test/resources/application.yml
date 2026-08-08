@@ -5,10 +5,10 @@ build:
 
 logging:
   file:
-    name: "logs/@project.build.finalName@.log"
+    name: "logs/@project.build.finalName@-test.log"
   logback:
     rollingpolicy:
-      file-name-pattern: "logs/archive/@project.build.finalName@-%d{yyyy-MM-dd}.%i.log.zip"
+      file-name-pattern: "logs/archive/@project.build.finalName@-test-%d{yyyy-MM-dd}.%i.log.zip"
       max-history: 10
   
 server:
@@ -20,12 +20,13 @@ server:
     context-path: '/@project.build.finalName@'
 
 spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.data.mongodb.autoconfigure.MongoDataAutoConfiguration
   output:
     ansi:
       enabled: always
   profiles:
     active:
-      - local # default spring boot profile
-
-springdoc:
-  show-actuator: true
+      - test # default spring boot test profile
