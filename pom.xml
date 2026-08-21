@@ -24,6 +24,7 @@
 		<module>portfolio-web</module>
 		<module>portfolio-api</module>
 		<module>portfolio-core</module>
+		<module>portfolio-service</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

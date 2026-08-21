@@ -1,4 +1,4 @@
-package com.zoostarinc.portfolio.web;
+package com.zoostarinc.portfolio.web.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

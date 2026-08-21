@@ -1,4 +1,4 @@
-package com.zoostarinc.portfolio.api.controller;
+package com.zoostarinc.portfolio.web.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

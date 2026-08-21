@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Summary SPA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .status {
+      font-style: italic;
+      color: #666;
+    }
+    .error {
+      color: #d9534f;
+    }
+    .controls {
+      margin-top: 15px;
+    }
+    button {
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Portfolio Summary</h2>
+    <div id="status" class="status">Loading summary data...</div>
+    <div id="content"></div>
+    <div class="controls">
+      <button onclick="updateToken()">Update Access Token</button>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE_URL = 'https://portfolio.apigator.net';
+
+    function getAuthToken() {
+      let token = localStorage.getItem('oauth_access_token');
+      if (!token) {
+        token = prompt('Please enter your OAuth2 Access Token:');
+        if (token) {
+          localStorage.setItem('oauth_access_token', token.trim());
+        }
+      }
+      return token;
+    }
+
+    function updateToken() {
+      const newToken = prompt('Enter new OAuth2 Access Token:');
+      if (newToken) {
+        localStorage.setItem('oauth_access_token', newToken.trim());
+        fetchSummary();
+      }
+    }
+
+    async function fetchSummary() {
+      const statusEl = document.getElementById('status');
+      const contentEl = document.getElementById('content');
+      const token = getAuthToken();
+
+      if (!token) {
+        statusEl.textContent = '';
+        contentEl.innerHTML = '<p class="error">Authorization token required to proceed.</p>';
+        return;
+      }
+
+      statusEl.textContent = 'Loading summary data...';
+      contentEl.innerHTML = '';
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/summary`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+          localStorage.removeItem('oauth_access_token');
+          throw new Error('Unauthorized or expired token. Please clear and re-enter a valid token.');
+        }
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        statusEl.textContent = 'Data loaded successfully:';
+        contentEl.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+      } catch (err) {
+        statusEl.textContent = '';
+        contentEl.innerHTML = `<p class="error">Failed to load summary: ${err.message}</p>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchSummary);
+  </script>
+
+</body>
+</html>

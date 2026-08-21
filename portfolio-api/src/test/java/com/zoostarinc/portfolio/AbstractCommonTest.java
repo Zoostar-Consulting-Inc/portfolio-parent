@@ -63,7 +63,7 @@ public abstract class AbstractCommonTest {
 
 	protected OidcUser oidcUser() {
 		Map<String, Object> claims = new HashMap<>();
-		claims.put(StandardClaimNames.SUB, "testuser");
+		claims.put(StandardClaimNames.SUB, "junit");
 		claims.put(StandardClaimNames.GIVEN_NAME, "junit");
 		claims.put(StandardClaimNames.EMAIL, "test@example.com");
 		OidcIdToken idToken = new OidcIdToken("tokenValue", Instant.now(), Instant.now().plusSeconds(3600), claims);

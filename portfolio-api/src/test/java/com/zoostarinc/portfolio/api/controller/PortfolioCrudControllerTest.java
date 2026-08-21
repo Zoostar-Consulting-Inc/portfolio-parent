@@ -62,6 +62,38 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 	}
 
 	@Test
+	void testSell() throws Exception {
+		// given
+		var url = "/sell";
+		PositionRequest request = new PositionRequest();
+		request.setTicker("junit");
+		request.setQuantity(10);
+		request.setAmount(1000f);
+		request.setTxDate(new Date());
+
+		// mock
+		var position = new PositionEntity(oidcUser().getSubject(), request.getTxDate(), request.getTicker(), request.getQuantity() * -1, request.getAmount() * -1);
+		var entity = new PositionEntity(position.getOauthUserId(), position.getTxDate(), position.getTicker(),
+				position.getQuantity(), position.getAmount());
+		String positionId = "1";
+		entity.setId(positionId);
+
+		when(positionRepository.save(position)).thenReturn(entity);
+
+		// when
+		var response = postJsonRequest(url, request);
+
+		// then
+		assertThat(response.getStatus()).isEqualTo(200);
+		var result = om.readValue(response.getContentAsString(), PositionResponse.class);
+		assertThat(result.getPositionId()).isEqualTo(positionId);
+		assertThat(result.getTicker()).isEqualTo(request.getTicker());
+		assertThat(result.getQuantity()).isEqualTo(request.getQuantity() * -1);	
+		assertThat(result.getAmount()).isEqualTo(request.getAmount() * -1);
+		assertThat(result.getTxDate()).isEqualTo(request.getTxDate());
+	}
+
+	@Test
 	void testSummary() throws Exception {
 		// given
 		var url = "/summary";

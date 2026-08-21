@@ -1,6 +1,5 @@
-api:
-  base:
-    url: http://localhost:8080/portfolio-api
+base-url:
+  portfolio-api: http://localhost:9080/portfolio-api
 
 logging:
   level:

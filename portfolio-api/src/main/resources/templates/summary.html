@@ -6,21 +6,29 @@
   <title>Portfolio Summary</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon">
 </head>
 <body class="bg-light">
 
   <div class="container py-5">
-    <h2 class="mb-4" th:text="#{dashboard.title}">dashboard.title</h2>
+    <div class="row mb-4">
+      <div class="col">
+        <h2 th:text="#{dashboard.title}">Portfolio Summary Dashboard</h2>
+      </div>
+      <div class="col-auto">
+        <span class="badge bg-primary" th:text="'Welcome, ' + ${name}">Welcome, User</span>
+      </div>
+    </div>
 
     <!-- Search Form -->
     <div class="card mb-4 shadow-sm">
       <div class="card-body">
         <form id="summaryForm" class="row g-3 align-items-center">
           <div class="col-auto">
-            <label for="ticker" class="col-form-label fw-bold">Ticker Symbol:</label>
+            <label for="ticker" class="col-form-label fw-bold" th:text="#{ticker.label}">Ticker Symbol:</label>
           </div>
           <div class="col-auto">
-            <input type="text" id="ticker" name="ticker" class="form-control" placeholder="e.g., AAPL (Optional)" th:placeholder="#{ticker.placeholder}">
+            <input type="text" id="ticker" name="ticker" class="form-control" th:placeholder="#{ticker.placeholder}">
           </div>
           <div class="col-auto">
             <button type="submit" class="btn btn-primary" th:text="#{fetch.button}">Fetch Summary</button>
@@ -39,10 +47,10 @@
           <table class="table table-striped table-hover align-middle mb-0">
             <thead class="table-dark">
               <tr>
-                <th th:text="#{table.ticker}">table.ticker</th>
-                <th th:text="#{table.quantity}" />
-                <th th:text="#{table.amount}" />
-                <th th:text="#{table.cost}" />
+                <th th:text="#{table.ticker}">Ticker</th>
+                <th th:text="#{table.quantity}">Quantity</th>
+                <th th:text="#{table.amount}">Amount ($)</th>
+                <th th:text="#{table.cost}">Cost ($)</th>
               </tr>
             </thead>
             <tbody id="summaryTableBody">
@@ -58,11 +66,8 @@
 
   <!-- JavaScript -->
   <script th:inline="javascript">
-  	const API_ACCESS_TOKEN = /*[[${accessToken}]]*/ 'default-token';
-  	console.log('Using API Access Token:', API_ACCESS_TOKEN);
     const API_BASE_URL = /*[[${apiBaseUrl}]]*/ 'http://localhost:9080/portfolio-api';
-	console.log('Using API Base URL:', API_BASE_URL);
-	
+
     document.getElementById('summaryForm').addEventListener('submit', async function(event) {
       event.preventDefault();
       
@@ -84,8 +89,7 @@
         const response = await fetch(url, {
           method: 'GET',
           headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + API_ACCESS_TOKEN
+            'Accept': 'application/json'
           }
         });
 

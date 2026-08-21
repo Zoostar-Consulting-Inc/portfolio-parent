@@ -1,5 +1,7 @@
 package com.zoostarinc.portfolio;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -8,6 +10,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -35,7 +41,7 @@ public class ApplicationContext {
 
 	@Value("${build.timestamp}")
 	private String buildTimestamp;
-	
+
 	@Value("${server.servlet.context-path}")
 	private String contextPath;
 
@@ -49,24 +55,42 @@ public class ApplicationContext {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
-		return security.csrf(csrf -> csrf.disable()).authorizeHttpRequests(authorize -> authorize
-				// Allow Swagger UI resources (CSS, JS, HTML, images)
-				.requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/webjars/**").permitAll()
-				// Allow static resources if you have any served directly
-				.requestMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-				.anyRequest().authenticated()).oauth2Login(Customizer.withDefaults()).build();
+		return security.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(authorize -> authorize
+						// Allow preflight requests for CORS from front-end clients
+						.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+						// Allow Swagger UI resources (CSS, JS, HTML, images)
+						.requestMatchers("/swagger-ui/*.css", "/swagger-ui/*.js", "/v3/api-docs/**", "/webjars/**",
+								"/static/**")
+						.permitAll().anyRequest().authenticated())
+				.oauth2Login(Customizer.withDefaults()).build();
 	}
 
 	@Bean
 	WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
-			
+
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("https://portfolio.apigator.net");
+				log.info("{}...", "Configuring CORS Mapping");
+				registry.addMapping("/**").allowedOrigins("https://portfolio.apigator.net", "http://localhost:1080")
+						.allowedMethods("GET", "POST", "OPTIONS").allowedHeaders("*").allowCredentials(true);
 			}
-			
+
 		};
-		
+
+	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(List.of("http://localhost:1080"));
+		configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 }

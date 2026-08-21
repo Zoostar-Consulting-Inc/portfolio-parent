@@ -1,4 +1,4 @@
-package com.zoostarinc.portfolio.api.util.function;
+package com.zoostarinc.portfolio.util.function;
 
 import java.util.function.Supplier;
 

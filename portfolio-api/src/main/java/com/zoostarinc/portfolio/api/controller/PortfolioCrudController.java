@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,13 +20,14 @@ import com.zoostarinc.portfolio.api.response.PositionResponse;
 import com.zoostarinc.portfolio.api.util.function.PortfolioDetailResponseSupplier;
 import com.zoostarinc.portfolio.api.util.function.PortfolioSummaryResponseSupplier;
 import com.zoostarinc.portfolio.api.util.function.PositionEntityResponseSupplier;
-import com.zoostarinc.portfolio.api.util.function.UpdatePositionDetailRequestSupplier;
 import com.zoostarinc.portfolio.service.PortfolioManager;
+import com.zoostarinc.portfolio.util.function.UpdatePositionDetailRequestSupplier;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class PortfolioCrudController {
 	
 	private final PortfolioManager defaultPostfolioManager;
