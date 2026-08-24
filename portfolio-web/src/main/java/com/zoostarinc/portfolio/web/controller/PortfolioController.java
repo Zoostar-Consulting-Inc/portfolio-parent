@@ -1,5 +1,6 @@
 package com.zoostarinc.portfolio.web.controller;
 
+import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.zoostarinc.portfolio.service.PortfolioApiService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +35,7 @@ public class PortfolioController {
 	 * @return the view name
 	 */
 	@GetMapping(path = "/")
-	public String index(@AuthenticationPrincipal OidcUser user, @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient client, Model model) {
+	public String index(@AuthenticationPrincipal OidcUser user, @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient client, Model model, HttpSession session, ClientHttpRequest request) {
 		log.info("Hello User: {}", user);
 		var token = client.getAccessToken().getTokenValue();
 		if(!StringUtils.hasText(token)) {
@@ -42,10 +44,10 @@ public class PortfolioController {
 		model.addAttribute("name", user.getFullName());
 		model.addAttribute("accessToken", token);
 		
-		var value = portfolioApiManager.getPortfolioSummary(token, null);
+		var value = portfolioApiManager.getPortfolioSummary(session.getId(), token, null);
 		log.info("Response: {}", value);
 		
-		return "index";
+		return "portfolio";
 	}
 	
 }

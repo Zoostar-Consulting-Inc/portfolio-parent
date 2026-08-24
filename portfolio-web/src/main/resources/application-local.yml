@@ -6,6 +6,7 @@ logging:
     root: info
     '[com.zoostarinc]': trace
     '[net.zoostar]': trace
+    '[org.springframework.web.client]': trace
 
 server:
   port: 1080

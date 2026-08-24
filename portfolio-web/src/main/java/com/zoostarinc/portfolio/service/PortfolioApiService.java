@@ -4,6 +4,6 @@ import com.zoostarinc.portfolio.api.response.PortfolioSummaryResponse;
 
 public interface PortfolioApiService {
 
-	PortfolioSummaryResponse getPortfolioSummary(String token, String ticker);
+	PortfolioSummaryResponse getPortfolioSummary(String sessionId, String token, String ticker);
 	
 }
