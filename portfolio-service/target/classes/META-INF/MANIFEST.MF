@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Build-Jdk-Spec: 21
-Implementation-Title: portfolio-service
-Implementation-Version: 1.5.0-SNAPSHOT
-Implementation-Vendor: Zoostar Cosulting, Inc.
-Created-By: Maven Integration for Eclipse
-

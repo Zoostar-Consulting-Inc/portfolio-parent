@@ -2,8 +2,6 @@ package com.zoostarinc.portfolio.util.function;
 
 import java.util.function.Supplier;
 
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-
 import com.nimbusds.jwt.util.DateUtils;
 import com.zoostarinc.portfolio.api.request.PositionRequest;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
@@ -20,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class PositionRequestEntitySupplier implements Supplier<PositionEntity> {
 
-	private final OidcUser user;
+	private final String oauthUserId;
 	
 	private final int factor;
 	
@@ -35,7 +33,7 @@ public class PositionRequestEntitySupplier implements Supplier<PositionEntity> {
 		}
 		position.setQuantity(request.getQuantity() * factor);
 		position.setAmount(request.getAmount() * factor);
-		position.setOauthUserId(user.getSubject());
+		position.setOauthUserId(oauthUserId);
 		position.setTxDate(request.getTxDate());
 		position.setLastUpdated(DateUtils.nowWithSecondsPrecision());
 		log.debug("Returning persistable entity: {}...", position);

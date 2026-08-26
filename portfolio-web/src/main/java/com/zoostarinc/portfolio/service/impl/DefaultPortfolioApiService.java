@@ -17,21 +17,20 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class DefaultPortfolioApiService implements PortfolioApiService {
 
+	public static final String SUMMARY_URI = "http://localhost:9080/portfolio-api/summary";
+//	public static final String SUMMARY_URI = "https://portfolio.apigator.net/summary";
+
 	private final RestClient restClient;
 
 	@Override
-	public PortfolioSummaryResponse getPortfolioSummary(String sessionId, String token, String ticker) {
-		StringBuilder url = new StringBuilder("https://portfolio.apigator.net/summary");
+	public PortfolioSummaryResponse getPortfolioSummary(String ticker) {
+		StringBuilder uri = new StringBuilder(SUMMARY_URI);
 		if (StringUtils.hasText(ticker)) {
-			url.append("?ticker=").append(ticker);
+			uri.append("?ticker=").append(ticker);
 		}
 
-		log.debug("Session ID: {}", sessionId);
-		log.debug("Authorization Bearer Token: {}", token);
-		var response = restClient.get().uri("/summary").
-				header("Cookie", "JSESSIONID=" + sessionId).
-				header("Authorization", "Bearer " + token).
-				retrieve().toEntity(PortfolioSummaryResponse.class);
+		log.info("Making call to Portfolio API: {}...", uri.toString());
+		var response = restClient.get().uri(uri.toString()).retrieve().toEntity(PortfolioSummaryResponse.class);
 
 		if (response.getStatusCode().is2xxSuccessful()) {
 			return response.getBody();

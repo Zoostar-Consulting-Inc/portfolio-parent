@@ -2,8 +2,6 @@ package com.zoostarinc.portfolio.util.function;
 
 import java.util.function.Supplier;
 
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-
 import com.nimbusds.jwt.util.DateUtils;
 import com.zoostarinc.portfolio.api.response.PositionResponse;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
@@ -18,7 +16,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 public class UpdatePositionDetailRequestSupplier implements Supplier<PositionEntity> {
 
-	private final OidcUser user;
+	private final String oauthUserId;
 	
 	private final PositionResponse request;
 
@@ -30,7 +28,7 @@ public class UpdatePositionDetailRequestSupplier implements Supplier<PositionEnt
 		entity.setAmount(request.getAmount());
 		entity.setQuantity(request.getQuantity());
 		entity.setTxDate(request.getTxDate());
-		entity.setOauthUserId(user.getSubject());
+		entity.setOauthUserId(oauthUserId);
 		entity.setLastUpdated(DateUtils.nowWithSecondsPrecision());
 		return entity;
 	}

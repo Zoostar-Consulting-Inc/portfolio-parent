@@ -9,6 +9,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
+import org.springframework.security.oauth2.core.OAuth2TokenValidator;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtClaimValidator;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.jwt.JwtValidators;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -27,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Generated
 @Configuration
+@EnableWebSecurity
 @EnableAspectJAutoProxy
 @RequiredArgsConstructor
 @ComponentScan(basePackages = { "net.zoostar", "com.zoostarinc" })
@@ -44,6 +54,9 @@ public class ApplicationContext {
 
 	@Value("${server.servlet.context-path}")
 	private String contextPath;
+
+	@Value("${spring.security.oauth2.client.registration.google.clientId}")
+	private String googleClientId;
 
 	@Bean
 	OpenAPI openAPI() {
@@ -63,7 +76,8 @@ public class ApplicationContext {
 						.requestMatchers("/swagger-ui/*.css", "/swagger-ui/*.js", "/v3/api-docs/**", "/webjars/**",
 								"/static/**")
 						.permitAll().anyRequest().authenticated())
-				.oauth2Login(Customizer.withDefaults()).build();
+				.oauth2Login(Customizer.withDefaults())
+				.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(jwtDecoder()))).build();
 	}
 
 	@Bean
@@ -93,4 +107,20 @@ public class ApplicationContext {
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
+
+	@Bean
+	JwtDecoder jwtDecoder() {
+		// Points to Google's public issuer endpoint
+		NimbusJwtDecoder jwtDecoder = JwtDecoders.fromIssuerLocation("https://accounts.google.com");
+
+		OAuth2TokenValidator<Jwt> audienceValidator = new JwtClaimValidator<List<String>>("aud",
+				aud -> aud != null && aud.contains(googleClientId));
+		OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer("https://accounts.google.com");
+		OAuth2TokenValidator<Jwt> combinedValidator = new DelegatingOAuth2TokenValidator<>(withIssuer,
+				audienceValidator);
+
+		jwtDecoder.setJwtValidator(combinedValidator);
+		return jwtDecoder;
+	}
+
 }

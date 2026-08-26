@@ -14,8 +14,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 810043606026-dg6lrjmrf2ie4538tq60tkeq7fiuqqkh.apps.googleusercontent.com
-            clientSecret: ${client.secret.portfolio-api.google}
+            clientId: 810043606026-k328vk17dgq4ctn630djpbeqi4endj01.apps.googleusercontent.com
+            clientSecret: ${client.secret.portfolio.google}
             scope:
               - openid
               - profile
