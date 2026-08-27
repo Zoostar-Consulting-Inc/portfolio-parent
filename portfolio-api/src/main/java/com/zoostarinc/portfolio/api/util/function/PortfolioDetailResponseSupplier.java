@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import com.zoostarinc.portfolio.api.response.PositionDetailResponse;
-import com.zoostarinc.portfolio.dao.entity.PositionEntity;
+import com.zoostarinc.portfolio.model.Position;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class PortfolioDetailResponseSupplier implements Supplier<Map<String, List<PositionDetailResponse>>> {
 
-	private final List<PositionEntity> entities;
+	private final List<Position> entities;
 
 	@Override
 	public Map<String, List<PositionDetailResponse>> get() {

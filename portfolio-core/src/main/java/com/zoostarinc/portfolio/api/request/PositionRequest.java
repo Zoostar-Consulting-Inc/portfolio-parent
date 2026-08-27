@@ -1,6 +1,6 @@
 package com.zoostarinc.portfolio.api.request;
 
-import java.util.Date;
+import java.time.Instant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class PositionRequest {
 	
-	private Date txDate;
+	private Instant date;
 	
 	private String ticker;
 	

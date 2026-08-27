@@ -4,16 +4,17 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
+import com.zoostarinc.portfolio.model.Position;
 
 public interface PortfolioManager {
 
-	PositionEntity create(Supplier<PositionEntity> supplier);
+	Position create(Supplier<PositionEntity> supplier);
 
-	List<PositionEntity> retrievePositionSummaryByTickerForUser(String oauthUserId, String ticker);
+	List<Position> retrievePositionSummaryByTickerForUser(String oauthUserId, String ticker);
 	
-	PositionEntity update(Supplier<PositionEntity> supplier);
+	Position update(Supplier<PositionEntity> supplier);
 
-	List<PositionEntity> delete(String oauthUserId, String positionId);
+	List<Position> delete(String oauthUserId, String positionId);
 
 	
 }

@@ -1,8 +1,8 @@
 package com.zoostarinc.portfolio.util.function;
 
+import java.time.Instant;
 import java.util.function.Supplier;
 
-import com.nimbusds.jwt.util.DateUtils;
 import com.zoostarinc.portfolio.api.request.PositionRequest;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.validation.TickerRequestValidator;
@@ -33,9 +33,9 @@ public class PositionRequestEntitySupplier implements Supplier<PositionEntity> {
 		}
 		position.setQuantity(request.getQuantity() * factor);
 		position.setAmount(request.getAmount() * factor);
-		position.setOauthUserId(oauthUserId);
-		position.setTxDate(request.getTxDate());
-		position.setLastUpdated(DateUtils.nowWithSecondsPrecision());
+		position.setUserId(oauthUserId);
+		position.setDate(request.getDate());
+		position.setLastUpdated(Instant.now());
 		log.debug("Returning persistable entity: {}...", position);
 		return position;
 	}

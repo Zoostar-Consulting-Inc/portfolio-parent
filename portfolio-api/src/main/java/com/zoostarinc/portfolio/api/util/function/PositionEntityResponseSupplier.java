@@ -3,7 +3,7 @@ package com.zoostarinc.portfolio.api.util.function;
 import java.util.function.Supplier;
 
 import com.zoostarinc.portfolio.api.response.PositionResponse;
-import com.zoostarinc.portfolio.dao.entity.PositionEntity;
+import com.zoostarinc.portfolio.model.Position;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class PositionEntityResponseSupplier implements Supplier<PositionResponse> {
 
-	private final PositionEntity entity;
+	private final Position entity;
 
 	@Override
 	public PositionResponse get() {
@@ -25,7 +25,7 @@ public class PositionEntityResponseSupplier implements Supplier<PositionResponse
 		response.setPositionId(entity.getId());
 		response.setQuantity(entity.getQuantity());
 		response.setTicker(entity.getTicker());
-		response.setTxDate(entity.getTxDate());
+		response.setDate(entity.getDate());
 		log.debug("Returning persistent entity: {}", response);
 		return response;
 	}

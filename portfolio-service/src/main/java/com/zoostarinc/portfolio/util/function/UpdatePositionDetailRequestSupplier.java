@@ -1,8 +1,8 @@
 package com.zoostarinc.portfolio.util.function;
 
+import java.time.Instant;
 import java.util.function.Supplier;
 
-import com.nimbusds.jwt.util.DateUtils;
 import com.zoostarinc.portfolio.api.response.PositionResponse;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.validation.TickerRequestValidator;
@@ -27,9 +27,9 @@ public class UpdatePositionDetailRequestSupplier implements Supplier<PositionEnt
 		entity.setId(request.getPositionId());
 		entity.setAmount(request.getAmount());
 		entity.setQuantity(request.getQuantity());
-		entity.setTxDate(request.getTxDate());
-		entity.setOauthUserId(oauthUserId);
-		entity.setLastUpdated(DateUtils.nowWithSecondsPrecision());
+		entity.setDate(request.getDate());
+		entity.setUserId(oauthUserId);
+		entity.setLastUpdated(Instant.now());
 		return entity;
 	}
 

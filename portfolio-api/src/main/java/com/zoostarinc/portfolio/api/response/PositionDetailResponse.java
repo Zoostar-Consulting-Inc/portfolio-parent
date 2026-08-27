@@ -1,8 +1,8 @@
 package com.zoostarinc.portfolio.api.response;
 
-import java.util.Date;
+import java.time.Instant;
 
-import com.zoostarinc.portfolio.dao.entity.PositionEntity;
+import com.zoostarinc.portfolio.model.Position;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,16 +16,16 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PositionDetailResponse {
 
-	public PositionDetailResponse(PositionEntity entity) {
-		this.positionId = entity.getId();
-		this.txDate = entity.getTxDate();
-		this.quantity = entity.getQuantity();
-		this.amount = entity.getAmount();
+	public PositionDetailResponse(Position position) {
+		this.positionId = position.getId();
+		this.date = position.getDate();
+		this.quantity = position.getQuantity();
+		this.amount = position.getAmount();
 	}
 	
 	private String positionId;
 	
-	private Date txDate;
+	private Instant date;
 	
 	private Integer quantity;
 	

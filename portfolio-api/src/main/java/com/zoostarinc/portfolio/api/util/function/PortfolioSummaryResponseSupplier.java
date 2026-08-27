@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 import com.zoostarinc.portfolio.api.response.PortfolioSummaryResponse;
 import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
-import com.zoostarinc.portfolio.dao.entity.PositionEntity;
+import com.zoostarinc.portfolio.model.Position;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class PortfolioSummaryResponseSupplier implements Supplier<PortfolioSummaryResponse> {
 
-	private final List<PositionEntity> positions;
+	private final List<Position> positions;
 	
 	@Override
 	public PortfolioSummaryResponse get() {

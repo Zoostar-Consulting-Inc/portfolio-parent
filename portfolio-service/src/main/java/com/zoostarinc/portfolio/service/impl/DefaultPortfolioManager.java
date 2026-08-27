@@ -1,6 +1,6 @@
 package com.zoostarinc.portfolio.service.impl;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -10,7 +10,9 @@ import org.springframework.util.StringUtils;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.dao.repository.PositionRepository;
+import com.zoostarinc.portfolio.model.Position;
 import com.zoostarinc.portfolio.service.PortfolioManager;
+import com.zoostarinc.portfolio.util.function.PositionSupplier;
 import com.zoostarinc.portfolio.validation.TickerRequestValidator;
 
 import lombok.Getter;
@@ -27,37 +29,38 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	private final PositionRepository positionRepository;
 
 	@Override
-	public PositionEntity create(Supplier<PositionEntity> supplier) {
+	public Position create(Supplier<PositionEntity> supplier) {
 		return positionRepository.save(supplier.get());
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<PositionEntity> retrievePositionSummaryByTickerForUser(String oauthUserId, String ticker) {
+	public List<Position> retrievePositionSummaryByTickerForUser(String oauthUserId, String ticker) {
 		if (StringUtils.hasText(ticker)) {
-			return positionRepository.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(oauthUserId,
-					TickerRequestValidator.INSTANCE.apply(ticker));
+			return new PositionSupplier(positionRepository.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(
+					oauthUserId, TickerRequestValidator.INSTANCE.apply(ticker))).get();
 		} else {
-			return positionRepository.findByOauthUserIdOrderByTickerAscQuantityDesc(oauthUserId);
+			return new PositionSupplier(positionRepository.findByOauthUserIdOrderByTickerAscQuantityDesc(oauthUserId))
+					.get();
 		}
 	}
 
 	@Override
-	public PositionEntity update(Supplier<PositionEntity> supplier) {
+	public Position update(Supplier<PositionEntity> supplier) {
 		var position = supplier.get();
 		var entity = positionRepository.findById(position.getId())
 				.orElseThrow(() -> new IllegalArgumentException("Position not found"));
 		entity.setAmount(position.getAmount());
 		entity.setQuantity(position.getQuantity());
 		entity.setTicker(position.getTicker());
-		entity.setTxDate(position.getTxDate());
-		entity.setOauthUserId(position.getOauthUserId());
-		entity.setLastUpdated(new Date());
+		entity.setDate(position.getDate());
+		entity.setUserId(position.getUserId());
+		entity.setLastUpdated(Instant.now());
 		return positionRepository.save(entity);
 	}
 
 	@Override
-	public List<PositionEntity> delete(String oauthUserId, String positionId) {
+	public List<Position> delete(String oauthUserId, String positionId) {
 		var entity = positionRepository.findById(positionId);
 		if (entity.isPresent()) {
 			log.info("Delete requested by {}: {}...", oauthUserId, entity);
@@ -65,8 +68,8 @@ public class DefaultPortfolioManager implements PortfolioManager {
 		} else {
 			log.warn("Delete requested by {}: {} not found.", oauthUserId, positionId);
 		}
-		return positionRepository.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(oauthUserId,
-				entity.get().getTicker());
+		return new PositionSupplier(positionRepository
+				.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(oauthUserId, entity.get().getTicker())).get();
 	}
 
 }
