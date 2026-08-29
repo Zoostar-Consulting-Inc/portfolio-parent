@@ -35,13 +35,12 @@ public class DefaultPortfolioManager implements PortfolioManager {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Position> retrievePositionSummaryByTickerForUser(String oauthUserId, String ticker) {
+	public List<Position> retrievePositionSummaryByTickerForUser(String userId, String ticker) {
 		if (StringUtils.hasText(ticker)) {
-			return new PositionSupplier(positionRepository.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(
-					oauthUserId, TickerRequestValidator.INSTANCE.apply(ticker))).get();
+			return new PositionSupplier(positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(userId,
+					TickerRequestValidator.INSTANCE.apply(ticker))).get();
 		} else {
-			return new PositionSupplier(positionRepository.findByOauthUserIdOrderByTickerAscQuantityDesc(oauthUserId))
-					.get();
+			return new PositionSupplier(positionRepository.findByUserIdOrderByTickerAscQuantityDesc(userId)).get();
 		}
 	}
 
@@ -60,16 +59,17 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	}
 
 	@Override
-	public List<Position> delete(String oauthUserId, String positionId) {
+	public List<Position> delete(String userId, String positionId) {
 		var entity = positionRepository.findById(positionId);
 		if (entity.isPresent()) {
-			log.info("Delete requested by {}: {}...", oauthUserId, entity);
-			positionRepository.deleteByOauthUserIdAndId(oauthUserId, positionId);
+			log.info("Delete requested by {}: {}...", userId, entity);
+			positionRepository.deleteByUserIdAndId(userId, positionId);
 		} else {
-			log.warn("Delete requested by {}: {} not found.", oauthUserId, positionId);
+			log.warn("Delete requested by {}: {} not found.", userId, positionId);
 		}
-		return new PositionSupplier(positionRepository
-				.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(oauthUserId, entity.get().getTicker())).get();
+		return new PositionSupplier(
+				positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(userId, entity.get().getTicker()))
+				.get();
 	}
 
 }

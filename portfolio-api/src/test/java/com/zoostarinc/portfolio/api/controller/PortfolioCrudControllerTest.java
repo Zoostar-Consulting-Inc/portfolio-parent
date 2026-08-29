@@ -40,7 +40,8 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		request.setDate(Instant.now());
 
 		// mock
-		var position = new PositionEntity(oidcUser().getSubject(), request.getDate(), request.getTicker(), request.getQuantity(), request.getAmount());
+		var position = new PositionEntity(oidcUser().getSubject(), request.getDate(), request.getTicker(),
+				request.getQuantity(), request.getAmount());
 		var entity = new PositionEntity(position.getUserId(), position.getDate(), position.getTicker(),
 				position.getQuantity(), position.getAmount());
 		String positionId = "1";
@@ -56,7 +57,7 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		var result = om.readValue(response.getContentAsString(), PositionResponse.class);
 		assertThat(result.getPositionId()).isEqualTo(positionId);
 		assertThat(result.getTicker()).isEqualTo(request.getTicker());
-		assertThat(result.getQuantity()).isEqualTo(request.getQuantity());	
+		assertThat(result.getQuantity()).isEqualTo(request.getQuantity());
 		assertThat(result.getAmount()).isEqualTo(request.getAmount());
 		assertThat(result.getDate()).isEqualTo(request.getDate());
 	}
@@ -72,7 +73,8 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		request.setDate(Instant.now());
 
 		// mock
-		var position = new PositionEntity(oidcUser().getSubject(), request.getDate(), request.getTicker(), request.getQuantity(), request.getAmount());
+		var position = new PositionEntity(oidcUser().getSubject(), request.getDate(), request.getTicker(),
+				request.getQuantity(), request.getAmount());
 		var entity = new PositionEntity(position.getUserId(), position.getDate(), position.getTicker(),
 				position.getQuantity(), position.getAmount());
 		String positionId = "1";
@@ -88,7 +90,7 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		var result = om.readValue(response.getContentAsString(), PositionResponse.class);
 		assertThat(result.getPositionId()).isEqualTo(positionId);
 		assertThat(result.getTicker()).isEqualTo(request.getTicker());
-		assertThat(result.getQuantity()).isEqualTo(request.getQuantity() * -1);	
+		assertThat(result.getQuantity()).isEqualTo(request.getQuantity() * -1);
 		assertThat(result.getAmount()).isEqualTo(request.getAmount() * -1);
 		assertThat(result.getDate()).isEqualTo(request.getDate());
 	}
@@ -99,7 +101,7 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		var url = "/summary";
 
 		// mock
-		when(positionRepository.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(oidcUser().getSubject(), ""))
+		when(positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(oidcUser().getSubject(), ""))
 				.thenReturn(List.of());
 
 		// when
@@ -121,8 +123,8 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		// mock
 		List<PositionEntity> entities = new ArrayList<>(1);
 		entities.add(new PositionEntity("1", oidcUser().getSubject(), Instant.now(), tickerValue, 10, 1000f));
-		when(positionRepository.findByOauthUserIdAndTickerOrderByTickerAscQuantityDesc(oidcUser().getSubject(),
-				tickerValue)).thenReturn(entities);
+		when(positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(oidcUser().getSubject(), tickerValue))
+				.thenReturn(entities);
 
 		// when
 		var response = getJsonResponse(url, tickerLabel, tickerValue);

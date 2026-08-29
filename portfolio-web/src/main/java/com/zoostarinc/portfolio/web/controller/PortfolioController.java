@@ -37,8 +37,8 @@ public class PortfolioController {
 		var value = portfolioApiManager.getPortfolioSummary(null);
 		log.info("Response: {}", value);
 		
-		model.addAttribute("message", "Hello " + user.getFullName() + ", welcome to your portfolio dashboard!");
-		
+		model.addAttribute("message", "Hello " + user.getGivenName() + ", welcome to your portfolio dashboard!");
+		model.addAttribute("response", value);
 		return "portfolio";
 	}
 	

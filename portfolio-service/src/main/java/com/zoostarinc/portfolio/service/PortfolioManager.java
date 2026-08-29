@@ -10,11 +10,11 @@ public interface PortfolioManager {
 
 	Position create(Supplier<PositionEntity> supplier);
 
-	List<Position> retrievePositionSummaryByTickerForUser(String oauthUserId, String ticker);
+	List<Position> retrievePositionSummaryByTickerForUser(String userId, String ticker);
 	
 	Position update(Supplier<PositionEntity> supplier);
 
-	List<Position> delete(String oauthUserId, String positionId);
+	List<Position> delete(String userId, String positionId);
 
 	
 }
