@@ -1,7 +1,5 @@
 package com.zoostarinc.portfolio.api.response;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +11,14 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class PositionSummaryResponse {
+public class PositionSummary {
+	
+	private String ticker;
+	
+	private Integer quantity = 0;
 
-	private List<PositionSummary> positions;
+	private Float amount = 0.0f;
+	
+	private Float cost;
 	
 }

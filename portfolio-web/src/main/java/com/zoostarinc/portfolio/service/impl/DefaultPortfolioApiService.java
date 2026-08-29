@@ -5,7 +5,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
-import com.zoostarinc.portfolio.api.response.PortfolioSummaryResponse;
+import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
 import com.zoostarinc.portfolio.service.PortfolioApiService;
 
 import lombok.Getter;
@@ -23,14 +23,14 @@ public class DefaultPortfolioApiService implements PortfolioApiService {
 	private final RestClient restClient;
 
 	@Override
-	public PortfolioSummaryResponse getPortfolioSummary(String ticker) {
+	public PositionSummaryResponse getPortfolioSummary(String ticker) {
 		StringBuilder uri = new StringBuilder(SUMMARY_URI);
 		if (StringUtils.hasText(ticker)) {
 			uri.append("?ticker=").append(ticker);
 		}
 
 		log.info("Making call to Portfolio API: {}...", uri.toString());
-		var response = restClient.get().uri(uri.toString()).retrieve().toEntity(PortfolioSummaryResponse.class);
+		var response = restClient.get().uri(uri.toString()).retrieve().toEntity(PositionSummaryResponse.class);
 
 		if (response.getStatusCode().is2xxSuccessful()) {
 			return response.getBody();

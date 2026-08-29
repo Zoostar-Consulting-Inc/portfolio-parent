@@ -1,9 +1,9 @@
 package com.zoostarinc.portfolio.service;
 
-import com.zoostarinc.portfolio.api.response.PortfolioSummaryResponse;
+import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
 
 public interface PortfolioApiService {
 
-	PortfolioSummaryResponse getPortfolioSummary(String ticker);
+	PositionSummaryResponse getPortfolioSummary(String ticker);
 	
 }

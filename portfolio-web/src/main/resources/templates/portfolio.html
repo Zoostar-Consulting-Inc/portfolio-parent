@@ -26,10 +26,10 @@
                     </thead>
                     <tbody>
                         <tr th:each="position : ${response.positions}">
-                            <td class="fw-bold text-uppercase" th:text="${position.key}">AAPL</td>
-                            <td th:text="${position.value.quantity}">0</td>
-                            <td th:text="${#numbers.formatCurrency(position.value.amount)}">$0.00</td>
-                            <td th:text="${#numbers.formatCurrency(position.value.cost)}">$0.00</td>
+                            <td class="fw-bold text-uppercase" th:text="${position.ticker}">AAPL</td>
+                            <td th:text="${position.quantity}">0</td>
+                            <td th:text="${#numbers.formatCurrency(position.amount)}">$0.00</td>
+                            <td th:text="${#numbers.formatCurrency(position.cost)}">$0.00</td>
                         </tr>
 
                         <tr th:if="${#lists.isEmpty(response)}">

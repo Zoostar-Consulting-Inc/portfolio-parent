@@ -14,8 +14,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import com.zoostarinc.portfolio.AbstractCommonTest;
 import com.zoostarinc.portfolio.api.request.PositionRequest;
-import com.zoostarinc.portfolio.api.response.PortfolioSummaryResponse;
 import com.zoostarinc.portfolio.api.response.PositionResponse;
+import com.zoostarinc.portfolio.api.response.PositionSummary;
+import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.dao.repository.PositionRepository;
 
@@ -109,7 +110,7 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(200);
-		var result = om.readValue(response.getContentAsString(), PortfolioSummaryResponse.class);
+		var result = om.readValue(response.getContentAsString(), PositionSummaryResponse.class);
 		assertThat(result.getPositions()).isEmpty();
 	}
 
@@ -131,9 +132,9 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(200);
-		var result = om.readValue(response.getContentAsString(), PortfolioSummaryResponse.class);
+		var result = om.readValue(response.getContentAsString(), PositionSummaryResponse.class);
 		assertThat(result.getPositions()).hasSize(1);
-		var entity = result.getPositions().get(tickerValue);
+		PositionSummary entity = result.getPositions().get(1);
 		assertThat(entity.getAmount()).isEqualTo(1000f);
 		assertThat(entity.getQuantity()).isEqualTo(10);
 		assertThat(entity.getCost()).isEqualTo(100f);
