@@ -22,7 +22,6 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class AbstractCommonTest {
@@ -32,12 +31,9 @@ public abstract class AbstractCommonTest {
 
 	@Autowired
 	protected MockMvc endpoint;
-
-	protected ObjectMapper om = objectMapper();
-
-	protected ObjectMapper objectMapper() {
-		return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-	}
+	
+	@Autowired
+	protected ObjectMapper om;
 
 	protected MockHttpServletResponse getResponse(String url) throws Exception {
 		return endpoint.perform(get(url).with(oidcLogin().oidcUser(oidcUser()))).andReturn().getResponse();
