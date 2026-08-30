@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import com.zoostarinc.portfolio.AbstractCommonTest;
@@ -29,6 +30,9 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 
 	@MockitoBean
 	PositionRepository positionRepository;
+	
+	@MockitoBean
+	OAuth2AuthorizedClientManager authorizedClientManager;
 
 	@Test
 	void testBuy() throws Exception {
