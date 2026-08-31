@@ -1,42 +1,54 @@
 package com.zoostarinc.portfolio.dao.entity;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.zoostarinc.portfolio.model.Position;
-
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @Document(collection = "positions")
-public class PositionEntity extends Position {
-
-	public PositionEntity(String userId, Instant date, String ticker, Integer quantity, Float amount) {
-		this(null, userId, date, ticker, quantity, amount);
-	}
-
-	public PositionEntity(String id, String userId, Instant date, String ticker, Integer quantity, Float amount) {
-		setId(id);
-		setUserId(userId);
-		setDate(date);
-		setTicker(ticker);
-		setQuantity(quantity);
-		setAmount(amount);
-		setLastUpdated(Instant.now());
-	}
+public class PositionEntity {
 
 	@Id
-	@Override
-	public String getId() {
-		return super.getId();
+	private String id;
+	
+	private String userId;
+	
+	private String ticker;
+
+	private LocalDate date;
+	
+	private Integer quantity;
+	
+	private Float amount;
+	
+	private Instant lastUpdated;
+	
+	public PositionEntity(String userId, String ticker, LocalDate date, Integer quantity, Float amount) {
+		this(null, userId, ticker, date, quantity, amount);
+	}
+
+	public PositionEntity(String id, String userId, String ticker, LocalDate date, Integer quantity, Float amount) {
+		this.id = id;
+		this.userId = userId;
+		this.ticker = ticker;
+		this.date = date;
+		this.quantity = quantity;
+		this.amount = amount;
+		setLastUpdated(Instant.now());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getUserId(), getTicker(), getQuantity(), getAmount(), getDate());
+		return Objects.hash(amount, date, quantity, ticker, userId);
 	}
 
 	@Override
@@ -47,10 +59,10 @@ public class PositionEntity extends Position {
 		if (!(obj instanceof PositionEntity)) {
 			return false;
 		}
-		PositionEntity that = (PositionEntity) obj;
-		return Objects.equals(getUserId(), that.getUserId()) && Objects.equals(getTicker(), that.getTicker())
-				&& Objects.equals(getQuantity(), that.getQuantity()) && Objects.equals(getAmount(), that.getAmount())
-				&& Objects.equals(getDate(), that.getDate());
+		PositionEntity other = (PositionEntity) obj;
+		return Objects.equals(amount, other.amount) && Objects.equals(date, other.date)
+				&& Objects.equals(quantity, other.quantity) && Objects.equals(ticker, other.ticker)
+				&& Objects.equals(userId, other.userId);
 	}
 
 }

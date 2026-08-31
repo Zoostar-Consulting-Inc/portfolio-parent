@@ -3,7 +3,7 @@ package com.zoostarinc.portfolio.api.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +30,7 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 
 	@MockitoBean
 	PositionRepository positionRepository;
-	
+
 	@MockitoBean
 	OAuth2AuthorizedClientManager authorizedClientManager;
 
@@ -42,15 +42,19 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		request.setTicker("JUNIT");
 		request.setQuantity(10);
 		request.setAmount(1000f);
-		request.setDate(Instant.now());
+		request.setDate(LocalDate.now());
 
 		// mock
-		var position = new PositionEntity(oidcUser().getSubject(), request.getDate(), request.getTicker(),
-				request.getQuantity(), request.getAmount());
-		var entity = new PositionEntity(position.getUserId(), position.getDate(), position.getTicker(),
-				position.getQuantity(), position.getAmount());
+		var position = new PositionEntity();
+		position.setAmount(request.getAmount());
+		position.setDate(request.getDate());
+		position.setQuantity(request.getQuantity());
+		position.setTicker(request.getTicker());
+		position.setUserId(oidcUser().getSubject());
+
 		String positionId = "1";
-		entity.setId(positionId);
+		var entity = new PositionEntity(positionId, position.getUserId(), position.getTicker(), position.getDate(),
+				position.getQuantity(), position.getAmount());
 
 		when(positionRepository.save(position)).thenReturn(entity);
 
@@ -72,18 +76,22 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		// given
 		var url = "/sell";
 		PositionRequest request = new PositionRequest();
-		request.setTicker("junit");
-		request.setQuantity(10);
+		request.setTicker("JUNIT");
+		request.setQuantity(100);
 		request.setAmount(1000f);
-		request.setDate(Instant.now());
+		request.setDate(LocalDate.now());
 
 		// mock
-		var position = new PositionEntity(oidcUser().getSubject(), request.getDate(), request.getTicker(),
-				request.getQuantity(), request.getAmount());
-		var entity = new PositionEntity(position.getUserId(), position.getDate(), position.getTicker(),
-				position.getQuantity(), position.getAmount());
+		var position = new PositionEntity();
+		position.setAmount(request.getAmount() * -1);
+		position.setDate(request.getDate());
+		position.setQuantity(request.getQuantity() * -1);
+		position.setTicker(request.getTicker());
+		position.setUserId(oidcUser().getSubject());
+
 		String positionId = "1";
-		entity.setId(positionId);
+		var entity = new PositionEntity(positionId, position.getUserId(), position.getTicker(), position.getDate(),
+				position.getQuantity(), position.getAmount());
 
 		when(positionRepository.save(position)).thenReturn(entity);
 
@@ -127,7 +135,7 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 
 		// mock
 		List<PositionEntity> entities = new ArrayList<>(1);
-		entities.add(new PositionEntity("1", oidcUser().getSubject(), Instant.now(), tickerValue, 10, 1000f));
+		entities.add(new PositionEntity("1", oidcUser().getSubject(), tickerValue, LocalDate.now(), 10, 1000f));
 		when(positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(oidcUser().getSubject(), tickerValue))
 				.thenReturn(entities);
 
@@ -138,7 +146,7 @@ class PortfolioCrudControllerTest extends AbstractCommonTest {
 		assertThat(response.getStatus()).isEqualTo(200);
 		var result = om.readValue(response.getContentAsString(), PositionSummaryResponse.class);
 		assertThat(result.getPositions()).hasSize(1);
-		PositionSummary entity = result.getPositions().get(1);
+		PositionSummary entity = result.getPositions().get(0);
 		assertThat(entity.getAmount()).isEqualTo(1000f);
 		assertThat(entity.getQuantity()).isEqualTo(10);
 		assertThat(entity.getCost()).isEqualTo(100f);

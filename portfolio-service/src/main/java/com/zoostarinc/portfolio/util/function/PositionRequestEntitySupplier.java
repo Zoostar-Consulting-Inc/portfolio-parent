@@ -19,16 +19,16 @@ import lombok.extern.slf4j.Slf4j;
 public class PositionRequestEntitySupplier implements Supplier<PositionEntity> {
 
 	private final String oauthUserId;
-	
+
 	private final int factor;
-	
+
 	private final PositionRequest request;
-	
+
 	@Override
 	public PositionEntity get() {
 		var position = new PositionEntity();
 		position.setTicker(TickerRequestValidator.INSTANCE.apply(request.getTicker()));
-		if(request.getQuantity() <= 0) {
+		if (request.getQuantity() <= 0) {
 			throw new IllegalArgumentException("Quantity must be greater than zero!");
 		}
 		position.setQuantity(request.getQuantity() * factor);
@@ -36,7 +36,7 @@ public class PositionRequestEntitySupplier implements Supplier<PositionEntity> {
 		position.setUserId(oauthUserId);
 		position.setDate(request.getDate());
 		position.setLastUpdated(Instant.now());
-		log.debug("Returning persistable entity: {}...", position);
+		log.debug("Created Position from request: {}.", position);
 		return position;
 	}
 

@@ -10,9 +10,7 @@ import org.springframework.util.StringUtils;
 
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 import com.zoostarinc.portfolio.dao.repository.PositionRepository;
-import com.zoostarinc.portfolio.model.Position;
 import com.zoostarinc.portfolio.service.PortfolioManager;
-import com.zoostarinc.portfolio.util.function.PositionSupplier;
 import com.zoostarinc.portfolio.validation.TickerRequestValidator;
 
 import lombok.Getter;
@@ -29,23 +27,23 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	private final PositionRepository positionRepository;
 
 	@Override
-	public Position create(Supplier<PositionEntity> supplier) {
+	public PositionEntity create(Supplier<PositionEntity> supplier) {
 		return positionRepository.save(supplier.get());
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Position> retrievePositionSummaryByTickerForUser(String userId, String ticker) {
+	public List<PositionEntity> retrievePositionSummaryByTickerForUser(String userId, String ticker) {
 		if (StringUtils.hasText(ticker)) {
-			return new PositionSupplier(positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(userId,
-					TickerRequestValidator.INSTANCE.apply(ticker))).get();
+			return positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(userId,
+					TickerRequestValidator.INSTANCE.apply(ticker));
 		} else {
-			return new PositionSupplier(positionRepository.findByUserIdOrderByTickerAscQuantityDesc(userId)).get();
+			return positionRepository.findByUserIdOrderByTickerAscQuantityDesc(userId);
 		}
 	}
 
 	@Override
-	public Position update(Supplier<PositionEntity> supplier) {
+	public PositionEntity update(Supplier<PositionEntity> supplier) {
 		var position = supplier.get();
 		var entity = positionRepository.findById(position.getId())
 				.orElseThrow(() -> new IllegalArgumentException("Position not found"));
@@ -59,7 +57,7 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	}
 
 	@Override
-	public List<Position> delete(String userId, String positionId) {
+	public List<PositionEntity> delete(String userId, String positionId) {
 		var entity = positionRepository.findById(positionId);
 		if (entity.isPresent()) {
 			log.info("Delete requested by {}: {}...", userId, entity);
@@ -67,9 +65,7 @@ public class DefaultPortfolioManager implements PortfolioManager {
 		} else {
 			log.warn("Delete requested by {}: {} not found.", userId, positionId);
 		}
-		return new PositionSupplier(
-				positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(userId, entity.get().getTicker()))
-				.get();
+		return positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(userId, entity.get().getTicker());
 	}
 
 }

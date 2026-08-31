@@ -7,14 +7,14 @@ import java.util.function.Supplier;
 
 import com.zoostarinc.portfolio.api.response.PositionSummary;
 import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
-import com.zoostarinc.portfolio.model.Position;
+import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class PositionSummaryResponseSupplier implements Supplier<PositionSummaryResponse> {
 
-	private final List<Position> positions;
+	private final List<PositionEntity> positions;
 
 	@Override
 	public PositionSummaryResponse get() {
