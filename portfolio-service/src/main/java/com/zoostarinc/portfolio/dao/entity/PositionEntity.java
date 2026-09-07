@@ -10,9 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @Document(collection = "positions")
 public class PositionEntity {
@@ -32,10 +34,6 @@ public class PositionEntity {
 	
 	private Instant lastUpdated;
 	
-	public PositionEntity(String userId, String ticker, LocalDate date, Integer quantity, Float amount) {
-		this(null, userId, ticker, date, quantity, amount);
-	}
-
 	public PositionEntity(String id, String userId, String ticker, LocalDate date, Integer quantity, Float amount) {
 		this.id = id;
 		this.userId = userId;

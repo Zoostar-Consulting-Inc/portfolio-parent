@@ -1,6 +1,7 @@
 package com.zoostarinc.portfolio.dao.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -13,5 +14,7 @@ public interface PositionRepository extends MongoRepository<PositionEntity, Stri
 	List<PositionEntity> findByUserIdAndTickerOrderByTickerAscQuantityDesc(String userId, String ticker);
 
 	void deleteByUserIdAndId(String userId, String value);
+
+	Optional<PositionEntity> findByIdAndUserId(String id, String userId);
 
 }

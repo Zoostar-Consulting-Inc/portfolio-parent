@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,7 +45,7 @@ public class PortfolioCrudController {
 		return ResponseEntity.ok(new PositionEntityResponseSupplier(defaultPostfolioManager.update(new UpdatePositionDetailRequestSupplier(Utils.getCurrentSubject(), request))).get());
 	}
 
-	@PostMapping(path = "/delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path = "/delete", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, List<PositionDetailResponse>>> delete(@RequestParam String positionId) {
 		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.delete(Utils.getCurrentSubject(), positionId)).get());
 	}

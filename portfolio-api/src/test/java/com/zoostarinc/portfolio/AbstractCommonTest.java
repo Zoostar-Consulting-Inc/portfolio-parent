@@ -1,6 +1,7 @@
 package com.zoostarinc.portfolio;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
@@ -26,14 +28,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public abstract class AbstractCommonTest {
 
-	@MockitoBean
-	ClientRegistrationRepository clientRegistrationRepository;
-
 	@Autowired
 	protected MockMvc endpoint;
-	
+
 	@Autowired
 	protected ObjectMapper om;
+
+	@MockitoBean
+	protected OAuth2AuthorizedClientManager authorizedClientManager;
+
+	@MockitoBean
+	protected ClientRegistrationRepository clientRegistrationRepository;
 
 	protected MockHttpServletResponse getResponse(String url) throws Exception {
 		return endpoint.perform(get(url).with(oidcLogin().oidcUser(oidcUser()))).andReturn().getResponse();
@@ -54,6 +59,12 @@ public abstract class AbstractCommonTest {
 		return endpoint
 				.perform(post(url).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 						.content(om.writeValueAsString(request)).with(oidcLogin().oidcUser(oidcUser())))
+				.andReturn().getResponse();
+	}
+
+	protected <T> MockHttpServletResponse deleteJsonRequest(String url, String paramName, String... paramValues) throws Exception {
+		return endpoint
+				.perform(delete(url).param(paramName, paramValues).contentType(MediaType.APPLICATION_JSON).with(oidcLogin().oidcUser(oidcUser())))
 				.andReturn().getResponse();
 	}
 

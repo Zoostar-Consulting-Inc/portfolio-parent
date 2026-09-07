@@ -3,9 +3,10 @@ package com.zoostarinc.portfolio.util.function;
 import java.time.Instant;
 import java.util.function.Supplier;
 
+import org.springframework.util.StringUtils;
+
 import com.zoostarinc.portfolio.api.request.PositionRequest;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
-import com.zoostarinc.portfolio.validation.TickerRequestValidator;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,13 @@ public class PositionRequestEntitySupplier implements Supplier<PositionEntity> {
 
 	@Override
 	public PositionEntity get() {
+		if(request == null || !StringUtils.hasText(request.getTicker())) {
+			throw new IllegalArgumentException("Ticker must not be empty!");
+		}
+		
 		var position = new PositionEntity();
-		position.setTicker(TickerRequestValidator.INSTANCE.apply(request.getTicker()));
+		position.setTicker(request.getTicker().toUpperCase());
+		
 		if (request.getQuantity() <= 0) {
 			throw new IllegalArgumentException("Quantity must be greater than zero!");
 		}

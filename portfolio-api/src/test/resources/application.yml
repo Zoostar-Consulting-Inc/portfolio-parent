@@ -4,8 +4,6 @@ build:
   timestamp: '@build.timestamp@'
 
 logging:
-  file:
-    name: "logs/@project.build.finalName@-test.log"
   logback:
     rollingpolicy:
       file-name-pattern: "logs/archive/@project.build.finalName@-test-%d{yyyy-MM-dd}.%i.log.zip"
