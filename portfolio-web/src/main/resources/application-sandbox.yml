@@ -1,5 +1,5 @@
 base-url:
-  portfolio-api: http://localhost:1080/portfolio-api
+  portfolio-api: http://localhost:2080/portfolio-api
 
 logging:
   level:
