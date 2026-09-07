@@ -15,8 +15,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.zoostarinc.portfolio</groupId>
-			<artifactId>portfolio-core</artifactId>
+			<artifactId>portfolio-service</artifactId>
 			<version>1.5.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.session</groupId>
@@ -29,10 +33,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -65,12 +65,18 @@
 	</dependencies>
 	<build>
 		<finalName>portfolio-api</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
 				<configuration>
-					<!-- No need to install war artifact -->
+					<!-- No need to deploy war artifact -->
 					<skip>true</skip>
 				</configuration>
 			</plugin>
@@ -78,7 +84,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<configuration>
-					<!-- No need to deploy war artifact to maven -->
+					<!-- No need to deploy war artifact to maven repo -->
 					<skip>true</skip>
 				</configuration>
 			</plugin>

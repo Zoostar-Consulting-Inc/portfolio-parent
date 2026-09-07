@@ -1,17 +1,24 @@
-{"properties": [
-  {
-    "name": "build.name",
-    "type": "java.lang.String",
-    "description": "Jenkins Build Number"
-  },
-  {
-    "name": "build.timestamp",
-    "type": "java.lang.String",
-    "description": "Most recent timestamp of the build"
-  },
-  {
-    "name": "build.version",
-    "type": "java.lang.String",
-    "description": "Build version from pom.xml"
-  }
-]}
+{
+	"properties": [
+		{
+			"name": "build.name",
+			"type": "java.lang.String",
+			"description": "Jenkins Build Number"
+		},
+		{
+			"name": "build.timestamp",
+			"type": "java.lang.String",
+			"description": "Most recent timestamp of the build"
+		},
+		{
+			"name": "build.version",
+			"type": "java.lang.String",
+			"description": "Build version from pom.xml"
+		},
+		{
+			"name": "base-url.portfolio-api",
+			"type": "java.lang.String",
+			"description": "Base URL for Portfolio API"
+		}
+	]
+}

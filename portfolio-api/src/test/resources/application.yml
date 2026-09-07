@@ -1,0 +1,30 @@
+build:
+  name: '@build.number@'
+  version: '@project.version@'
+  timestamp: '@build.timestamp@'
+
+logging:
+  logback:
+    rollingpolicy:
+      file-name-pattern: "logs/archive/@project.build.finalName@-test-%d{yyyy-MM-dd}.%i.log.zip"
+      max-history: 10
+  
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 2048
+  servlet:
+    context-path: '/@project.build.finalName@'
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.data.mongodb.autoconfigure.MongoDataAutoConfiguration
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    active:
+      - test # default spring boot test profile
