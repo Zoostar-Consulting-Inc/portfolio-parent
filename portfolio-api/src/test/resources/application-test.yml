@@ -4,3 +4,9 @@ logging:
     root: info
     '[net.zoostar]': debug
     '[com.zoostarinc]': debug
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.data.mongodb.autoconfigure.MongoDataAutoConfiguration
