@@ -9,6 +9,9 @@
 	</parent>
 	<artifactId>portfolio-web</artifactId>
 	<packaging>war</packaging>
+	<properties>
+		<tomcat.maven.deploy.phase>none</tomcat.maven.deploy.phase>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.zoostarinc.portfolio</groupId>
@@ -56,11 +59,5 @@
 	</dependencies>
 	<build>
 		<finalName>portfolio-web</finalName>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 	</build>
 </project>

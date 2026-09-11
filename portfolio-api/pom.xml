@@ -65,47 +65,5 @@
 	</dependencies>
 	<build>
 		<finalName>portfolio-api</finalName>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<configuration>
-					<!-- No need to deploy war artifact -->
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<!-- No need to deploy war artifact to maven repo -->
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>tomcat-maven-deploy</id>
-						<phase>${tomcat.maven.deploy.phase}</phase>
-						<goals>
-							<goal>redeploy</goal>
-						</goals>
-						<configuration>
-							<url>${tomcat.deploy.url}</url>
-							<server>tomcat</server>
-							<path>/${project.build.finalName}</path>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
 </project>
