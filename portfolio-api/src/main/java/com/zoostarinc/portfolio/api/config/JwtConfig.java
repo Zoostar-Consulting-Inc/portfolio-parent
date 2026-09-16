@@ -14,6 +14,9 @@ import org.springframework.security.oauth2.jwt.JwtDecoders;
 import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 public class JwtConfig {
 
@@ -22,6 +25,8 @@ public class JwtConfig {
 
 	@Bean
 	JwtDecoder jwtDecoder() {
+		log.info("Configuring JwtDecoder with Google client ID: {}", googleClientId);
+
 		// Points to Google's public issuer endpoint
 		NimbusJwtDecoder jwtDecoder = JwtDecoders.fromIssuerLocation("https://accounts.google.com");
 
