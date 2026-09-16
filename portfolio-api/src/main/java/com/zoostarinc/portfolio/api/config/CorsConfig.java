@@ -18,6 +18,7 @@ public class CorsConfig {
 
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
+				log.info("Configuring CORS mappings for allowed origins: {}", registry);
 				registry.addMapping("/**")
 						.allowedOrigins("https://portfolio.apigator.net", "https://portfolio.zoostarinc.com")
 						.allowedHeaders("*").allowCredentials(true);
