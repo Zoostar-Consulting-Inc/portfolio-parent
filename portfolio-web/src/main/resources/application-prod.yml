@@ -1,5 +1,5 @@
 base-url:
-  portfolio-api: http://portfolio.zoostarinc.com
+  portfolio-api: http://portfolio.apigator.net
 
 logging:
   level:
