@@ -15,6 +15,7 @@
 	<properties>
 		<build.number>${user.name}</build.number>
 		<build.timestamp>${maven.build.timestamp}</build.timestamp>
+		<maven.deploy.skip>false</maven.deploy.skip>
 		<sonar.token>${SONAR_TOKEN}</sonar.token>
 		<sonar.projectKey>Zoostar-Consulting-Inc_portfolio-parent</sonar.projectKey>
 		<sonar.organization>zoostar-consulting-inc</sonar.organization>
@@ -54,10 +55,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<!-- No need to deploy war artifact to maven repo -->
-					<skip>true</skip>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
