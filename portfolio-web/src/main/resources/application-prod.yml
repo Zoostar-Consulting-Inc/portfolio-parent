@@ -1,0 +1,10 @@
+base-url:
+  portfolio-api: http://portfolio.apigator.net
+
+logging:
+  level:
+    root: info
+    '[com.zoostarinc]': trace
+    '[net.zoostar]': trace
+    '[org.springframework.web.client]': trace
+
