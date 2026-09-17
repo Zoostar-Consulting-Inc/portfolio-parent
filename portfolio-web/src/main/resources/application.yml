@@ -29,10 +29,14 @@ spring:
   security:
     oauth2:
       client:
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent
         registration:
           google:
-            clientId: 810043606026-5itoflctleav37lt5onvmj6esm0t55qh.apps.googleusercontent.com
-            clientSecret: ${client.secret.portfolio-web.google}
+            authorization-grant-type: authorization_code
+            clientId: 810043606026-k328vk17dgq4ctn630djpbeqi4endj01.apps.googleusercontent.com
+            clientSecret: ${client.secret.portfolio.google}
             scope:
               - openid
               - profile

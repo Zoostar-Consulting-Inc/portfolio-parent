@@ -12,3 +12,17 @@ spring:
   data:
     mongodb:
       uri: mongodb+srv://pratik_db_user:${portfolio.datasource.password}@cluster0.vy1xwq4.mongodb.net/portfolio-local?appName=Cluster0
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+      client:
+        registration:
+          google:
+            clientId: 810043606026-k328vk17dgq4ctn630djpbeqi4endj01.apps.googleusercontent.com
+            clientSecret: ${client.secret.portfolio.google}
+            scope:
+              - openid
+              - profile
+              - email

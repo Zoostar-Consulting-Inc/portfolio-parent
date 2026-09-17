@@ -1,0 +1,9 @@
+base-url:
+  portfolio-api: http://dev.zoostar.net:9080/portfolio-api
+
+logging:
+  level:
+    root: info
+    '[com.zoostarinc]': trace
+    '[net.zoostar]': trace
+    '[org.springframework.web.client]': trace

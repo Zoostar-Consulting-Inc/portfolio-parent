@@ -26,17 +26,6 @@ spring:
   profiles:
     active:
       - local # default spring boot profile
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            clientId: 810043606026-dg6lrjmrf2ie4538tq60tkeq7fiuqqkh.apps.googleusercontent.com
-            clientSecret: ${client.secret.portfolio-api.google}
-            scope:
-              - openid
-              - profile
-              - email
 
 springdoc:
   show-actuator: true

@@ -1,0 +1,12 @@
+# --- Spring Boot specific properties for sandbox ---
+logging:
+  level:
+    root: info
+    '[net.zoostar]': debug
+    '[com.zoostarinc]': debug
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.data.mongodb.autoconfigure.MongoDataAutoConfiguration

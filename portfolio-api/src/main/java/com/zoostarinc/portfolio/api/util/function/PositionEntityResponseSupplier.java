@@ -25,7 +25,7 @@ public class PositionEntityResponseSupplier implements Supplier<PositionResponse
 		response.setPositionId(entity.getId());
 		response.setQuantity(entity.getQuantity());
 		response.setTicker(entity.getTicker());
-		response.setTxDate(entity.getTxDate());
+		response.setDate(entity.getDate());
 		log.debug("Returning persistent entity: {}", response);
 		return response;
 	}
