@@ -10,6 +10,7 @@
 	<artifactId>portfolio-web</artifactId>
 	<packaging>war</packaging>
 	<properties>
+		<maven.deploy.skip>true</maven.deploy.skip>
 		<tomcat.maven.deploy.phase>none</tomcat.maven.deploy.phase>
 	</properties>
 	<dependencies>
