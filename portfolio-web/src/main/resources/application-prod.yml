@@ -8,3 +8,6 @@ logging:
     '[net.zoostar]': trace
     '[org.springframework.web.client]': trace
 
+server:
+  forward-headers-strategy: framework
+
