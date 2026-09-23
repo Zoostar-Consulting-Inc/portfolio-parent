@@ -67,4 +67,5 @@
 	<build>
 		<finalName>portfolio-api</finalName>
 	</build>
+	<url>https://portfolio.apigator.net</url>
 </project>

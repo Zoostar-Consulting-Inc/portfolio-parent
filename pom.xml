@@ -9,17 +9,13 @@
 	<parent>
 		<groupId>net.zoostar.boot</groupId>
 		<artifactId>zoostar-boot-starter-parent</artifactId>
-		<version>3.6.0</version>
+		<version>3.7.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<properties>
-		<build.number>${user.name}</build.number>
-		<build.timestamp>${maven.build.timestamp}</build.timestamp>
-		<maven.deploy.skip>false</maven.deploy.skip>
 		<sonar.token>${SONAR_TOKEN}</sonar.token>
 		<sonar.projectKey>Zoostar-Consulting-Inc_portfolio-parent</sonar.projectKey>
 		<sonar.organization>zoostar-consulting-inc</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<modules>
 		<module>portfolio-api</module>
@@ -32,7 +28,7 @@
 			<dependency>
 				<groupId>net.zoostar.common</groupId>
 				<artifactId>zoostar-common</artifactId>
-				<version>3.6.0</version>
+				<version>3.7.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -76,7 +72,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<url>https://portfolio.apigator.net</url>
 	<description>Building RESTful APIs for calculating average cost for stock portfolio.</description>
 	<organization>
 		<name>Zoostar Cosulting, Inc.</name>
@@ -88,33 +83,4 @@
 	<ciManagement>
 		<system>Jenkins</system>
 	</ciManagement>
-	<profiles>
-		<!-- Development Profile -->
-		<profile>
-			<id>dev</id>
-			<activation>
-				<activeByDefault>true</activeByDefault> <!-- Active if no other
-				profile is specified -->
-			</activation>
-			<properties>
-				<tomcat.deploy.url>http://dev.zoostar.net:9080/manager/text</tomcat.deploy.url>
-			</properties>
-		</profile>
-
-		<!-- Staging Profile -->
-		<profile>
-			<id>stage</id>
-			<properties>
-				<tomcat.deploy.url>http://stage.zoostar.net:9080/manager/text</tomcat.deploy.url>
-			</properties>
-		</profile>
-
-		<!-- Production Profile -->
-		<profile>
-			<id>prod</id>
-			<properties>
-				<tomcat.deploy.url>http://prod.zoostar.net:9080/manager/text</tomcat.deploy.url>
-			</properties>
-		</profile>
-	</profiles>
 </project>

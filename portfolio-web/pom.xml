@@ -61,4 +61,5 @@
 	<build>
 		<finalName>portfolio-web</finalName>
 	</build>
+	<url>https://portfolio.zoostarinc.com</url>
 </project>
