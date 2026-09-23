@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -26,13 +28,15 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	private final PositionRepository positionRepository;
 
 	@Override
+	@CacheEvict(value = "positions")
 	public PositionEntity create(Supplier<PositionEntity> supplier) {
 		return positionRepository.save(supplier.get());
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<PositionEntity> retrievePositionSummaryByTickerForUser(String userId, String ticker) {
+	@Cacheable(value = "positions")
+	public List<PositionEntity> retrievePositionsByTickerForUser(String userId, String ticker) {
 		if (StringUtils.hasText(ticker)) {
 			return positionRepository.findByUserIdAndTickerOrderByTickerAscQuantityDesc(userId, ticker.toUpperCase());
 		} else {
@@ -41,6 +45,7 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	}
 
 	@Override
+	@CacheEvict(value = "positions")
 	public PositionEntity update(Supplier<PositionEntity> supplier) {
 		var position = supplier.get();
 		log.debug("Id: ", position.getId());
@@ -57,6 +62,7 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	}
 
 	@Override
+	@CacheEvict(value = "positions")
 	public List<PositionEntity> delete(String userId, String positionId) {
 		var entity = positionRepository.findByIdAndUserId(positionId, userId);
 		if (entity.isPresent()) {
