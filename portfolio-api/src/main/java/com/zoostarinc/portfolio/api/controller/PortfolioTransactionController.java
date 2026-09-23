@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PortfolioTransactionController {
 	
-	private final PortfolioManager defaultPostfolioManager;
+	private final PortfolioManager defaultPortfolioManager;
 	
 	@PostMapping(path = "/buy", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PositionResponse> buy(@RequestBody PositionRequest request) {
@@ -32,7 +32,7 @@ public class PortfolioTransactionController {
 	}
 	
 	protected ResponseEntity<PositionResponse> transact(PositionRequest request, int factor) {
-		return ResponseEntity.ok(new PositionEntityResponseSupplier(defaultPostfolioManager.create(new PositionRequestEntitySupplier(Utils.getCurrentSubject(), factor, request))).get());
+		return ResponseEntity.ok(new PositionEntityResponseSupplier(defaultPortfolioManager.create(new PositionRequestEntitySupplier(Utils.getCurrentSubject(), factor, request))).get());
 	}
 
 }
