@@ -4,6 +4,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import java.time.Instant;
 import java.util.Collections;
@@ -58,6 +59,13 @@ public abstract class AbstractCommonTest {
 	protected <T> MockHttpServletResponse postJsonRequest(String url, T request) throws Exception {
 		return endpoint
 				.perform(post(url).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+						.content(om.writeValueAsString(request)).with(oidcLogin().oidcUser(oidcUser())))
+				.andReturn().getResponse();
+	}
+
+	protected <T> MockHttpServletResponse putJsonRequest(String url, T request) throws Exception {
+		return endpoint
+				.perform(put(url).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 						.content(om.writeValueAsString(request)).with(oidcLogin().oidcUser(oidcUser())))
 				.andReturn().getResponse();
 	}

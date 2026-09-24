@@ -132,7 +132,7 @@ class PortfolioCrudControllerTest extends AbstractMockRepository {
 		when(positionRepository.save(entity)).thenReturn(entity);
 
 		// when
-		var response = postJsonRequest(url, request);
+		var response = putJsonRequest(url, request);
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(200);
@@ -151,7 +151,7 @@ class PortfolioCrudControllerTest extends AbstractMockRepository {
 		request.setTicker("JUNIT");
 
 		// when
-		var response = postJsonRequest(url, request);
+		var response = putJsonRequest(url, request);
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(400);
@@ -170,7 +170,7 @@ class PortfolioCrudControllerTest extends AbstractMockRepository {
 		request.setQuantity(100);
 
 		// when
-		var response = postJsonRequest(url, request);
+		var response = putJsonRequest(url, request);
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(400);
@@ -190,7 +190,7 @@ class PortfolioCrudControllerTest extends AbstractMockRepository {
 		request.setTicker("");
 
 		// when
-		var response = postJsonRequest(url, request);
+		var response = putJsonRequest(url, request);
 
 		// then
 		assertThat(response.getStatus()).isEqualTo(400);
