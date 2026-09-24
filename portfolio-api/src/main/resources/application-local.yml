@@ -1,6 +1,7 @@
 logging:
   level:
     root: info
+    '[org.springframework.cache]': trace
     '[org.springframework.data.mongodb]': debug
     '[com.zoostarinc]': trace
     '[net.zoostar]': trace

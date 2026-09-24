@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import com.zoostarinc.portfolio.api.request.PositionRequest;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Getter
 @ToString
+@EqualsAndHashCode
 @RequiredArgsConstructor
 public class PositionRequestEntitySupplier implements Supplier<PositionEntity> {
 

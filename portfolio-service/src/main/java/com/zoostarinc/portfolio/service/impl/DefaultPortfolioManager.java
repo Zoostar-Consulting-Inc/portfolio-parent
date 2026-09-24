@@ -28,7 +28,7 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	private final PositionRepository positionRepository;
 
 	@Override
-	@CacheEvict(value = "positions")
+	@CacheEvict(value = "positions", allEntries = true)
 	public PositionEntity create(Supplier<PositionEntity> supplier) {
 		return positionRepository.save(supplier.get());
 	}
@@ -45,10 +45,10 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	}
 
 	@Override
-	@CacheEvict(value = "positions")
+	@CacheEvict(value = "positions", allEntries = true)
 	public PositionEntity update(Supplier<PositionEntity> supplier) {
 		var position = supplier.get();
-		log.debug("Id: ", position.getId());
+		log.debug("Id: {}", position.getId());
 		log.debug("User Id: {}", position.getUserId());
 		var entity = positionRepository.findByIdAndUserId(position.getId(), position.getUserId())
 				.orElseThrow(() -> new IllegalArgumentException("Position not found!"));
@@ -62,7 +62,7 @@ public class DefaultPortfolioManager implements PortfolioManager {
 	}
 
 	@Override
-	@CacheEvict(value = "positions")
+	@CacheEvict(value = "positions", allEntries = true)
 	public List<PositionEntity> delete(String userId, String positionId) {
 		var entity = positionRepository.findByIdAndUserId(positionId, userId);
 		if (entity.isPresent()) {
