@@ -10,7 +10,9 @@ import com.zoostarinc.portfolio.api.response.PositionSummaryResponse;
 import com.zoostarinc.portfolio.dao.entity.PositionEntity;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public class PositionSummaryResponseSupplier implements Supplier<PositionSummaryResponse> {
 
@@ -19,6 +21,7 @@ public class PositionSummaryResponseSupplier implements Supplier<PositionSummary
 	@Override
 	public PositionSummaryResponse get() {
 		var positionSummaryByTicker = new LinkedHashMap<String, PositionSummary>();
+		log.info("Summarizing {} positions...", positions.size());
 		for (var position : positions) {
 			var positionSummary = positionSummaryByTicker.computeIfAbsent(position.getTicker(),
 					k -> new PositionSummary());

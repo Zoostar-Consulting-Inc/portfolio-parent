@@ -9,7 +9,7 @@ public interface PortfolioManager {
 
 	PositionEntity create(Supplier<PositionEntity> supplier);
 
-	List<PositionEntity> retrievePositionSummaryByTickerForUser(String userId, String ticker);
+	List<PositionEntity> retrievePositionsByTickerForUser(String userId, String ticker);
 	
 	PositionEntity update(Supplier<PositionEntity> supplier);
 

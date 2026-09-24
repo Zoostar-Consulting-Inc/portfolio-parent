@@ -1,5 +1,5 @@
 base-url:
-  portfolio-api: http://stage.zoostar.net:9080/portfolio-api
+  portfolio-api: https://portfolio.apigator.net
 
 logging:
   level:
@@ -7,4 +7,7 @@ logging:
     '[com.zoostarinc]': trace
     '[net.zoostar]': trace
     '[org.springframework.web.client]': trace
+
+server:
+  forward-headers-strategy: framework
 

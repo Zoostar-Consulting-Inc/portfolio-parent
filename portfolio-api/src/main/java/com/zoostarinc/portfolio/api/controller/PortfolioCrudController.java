@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,15 +32,15 @@ public class PortfolioCrudController {
 
 	@GetMapping(path = "/summary", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PositionSummaryResponse> summary(@RequestParam(required = false) String ticker) {
-		return ResponseEntity.ok(new PositionSummaryResponseSupplier(defaultPostfolioManager.retrievePositionSummaryByTickerForUser(Utils.getCurrentSubject(), ticker)).get());
+		return ResponseEntity.ok(new PositionSummaryResponseSupplier(defaultPostfolioManager.retrievePositionsByTickerForUser(Utils.getCurrentSubject(), ticker)).get());
 	}
 
 	@GetMapping(path = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, List<PositionDetailResponse>>> detail(@RequestParam(required = false) String ticker) {
-		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.retrievePositionSummaryByTickerForUser(Utils.getCurrentSubject(), ticker)).get());
+		return ResponseEntity.ok(new PortfolioDetailResponseSupplier(defaultPostfolioManager.retrievePositionsByTickerForUser(Utils.getCurrentSubject(), ticker)).get());
 	}
 
-	@PostMapping(path = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PositionResponse> update(@RequestBody PositionResponse request) {
 		return ResponseEntity.ok(new PositionEntityResponseSupplier(defaultPostfolioManager.update(new UpdatePositionDetailRequestSupplier(Utils.getCurrentSubject(), request))).get());
 	}
